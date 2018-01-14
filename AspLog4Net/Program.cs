@@ -12,7 +12,7 @@ namespace AspLog4Net
 {
     public class Program
     {
-   
+
         public static void Main(string[] args)
         {
             BuildWebHost(args).Run();
@@ -20,6 +20,7 @@ namespace AspLog4Net
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+           
                 .UseStartup<Startup>()
                 .Build();
     }
