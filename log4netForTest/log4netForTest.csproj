@@ -9,4 +9,8 @@
     <PackageReference Include="log4net" Version="2.0.8" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="logfile\" />
+  </ItemGroup>
+
 </Project>
