@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspLog4Net", "AspLog4Net\As
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspEntityFramework_CodeFirst", "AspEntityFramework_CodeFirst\AspEntityFramework_CodeFirst.csproj", "{9974B073-68F9-4148-BB86-FE10F1E16A80}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApiSwagger", "WebApiSwagger\WebApiSwagger.csproj", "{C2F9669B-35CC-4294-9CFE-9C9E6A686A98}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{9974B073-68F9-4148-BB86-FE10F1E16A80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9974B073-68F9-4148-BB86-FE10F1E16A80}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9974B073-68F9-4148-BB86-FE10F1E16A80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2F9669B-35CC-4294-9CFE-9C9E6A686A98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F9669B-35CC-4294-9CFE-9C9E6A686A98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F9669B-35CC-4294-9CFE-9C9E6A686A98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F9669B-35CC-4294-9CFE-9C9E6A686A98}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

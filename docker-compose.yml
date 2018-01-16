@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  aspentityframework_codefirst:
+    image: aspentityframework_codefirst
+    build:
+      context: .
+      dockerfile: AspEntityFramework_CodeFirst/Dockerfile
