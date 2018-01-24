@@ -32,10 +32,10 @@ namespace WebApiSwagger
                 c.SwaggerDoc("v1", new Info
                 {
                     Version = "v1",
-                    Title = "TwBusManagement接口文档",
-                    Description = "RESTful API for TwBusManagement",
+                    Title = "controler 测试接口文档",
+                    Description = "RESTful API for 测试接口文档",
                     TermsOfService = "None",
-                    Contact = new Contact { Name = "Alvin_Su", Email = "asdasdasd@outlook.com", Url = "" }
+                    Contact = new Contact { Name = "lms", Email = "asdasdasd@outlook.com", Url = "" }
                 });
 
                 //Set the comments path for the swagger json and ui.
@@ -59,7 +59,7 @@ namespace WebApiSwagger
             // Enable middleware to serve swagger-ui (HTML, JS, CSS etc.), specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "TwBusManagement API V1");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "测试接口文档 API V1");
                 c.ShowRequestHeaders();
             });
             app.UseMvc();

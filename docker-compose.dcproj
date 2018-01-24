@@ -2,11 +2,11 @@
 <Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
   <PropertyGroup Label="Globals">
     <ProjectVersion>2.0</ProjectVersion>
-    <DockerTargetOS>Linux</DockerTargetOS>
-    <ProjectGuid>13013b80-379d-4e08-a47e-69a9b2ed2020</ProjectGuid>
+    <DockerTargetOS>Windows</DockerTargetOS>
+    <ProjectGuid>8315632b-667d-4be7-a665-7f8133a1eea6</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
-    <DockerServiceUrl>http://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>aspentityframework_codefirst</DockerServiceName>
+    <DockerServiceUrl>http://{ServiceIPAddress}</DockerServiceUrl>
+    <DockerServiceName>webapidocker</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.override.yml">
@@ -14,6 +14,5 @@
     </None>
     <None Include="docker-compose.yml" />
     <None Include=".dockerignore" />
-    <None Include="docker-compose.ci.build.yml" />
   </ItemGroup>
 </Project>

@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  aspentityframework_codefirst:
-    image: aspentityframework_codefirst
+  webapidocker:
+    image: webapidocker
     build:
       context: .
-      dockerfile: AspEntityFramework_CodeFirst/Dockerfile
+      dockerfile: WebApiDocker\Dockerfile
