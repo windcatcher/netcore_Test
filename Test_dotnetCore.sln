@@ -19,7 +19,9 @@ Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-co
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Linq", "Linq\Linq.csproj", "{C41B4901-625C-4C85-A435-4AF153F477A1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Thread", "Thread\Thread.csproj", "{EE2C449C-5C07-4DA1-AB8D-2B7A6A547AA4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreadTest", "Thread\ThreadTest.csproj", "{EE2C449C-5C07-4DA1-AB8D-2B7A6A547AA4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{94087748-D1A9-49FB-8521-F6D338E20E00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{EE2C449C-5C07-4DA1-AB8D-2B7A6A547AA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EE2C449C-5C07-4DA1-AB8D-2B7A6A547AA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EE2C449C-5C07-4DA1-AB8D-2B7A6A547AA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94087748-D1A9-49FB-8521-F6D338E20E00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94087748-D1A9-49FB-8521-F6D338E20E00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94087748-D1A9-49FB-8521-F6D338E20E00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94087748-D1A9-49FB-8521-F6D338E20E00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
