@@ -9,7 +9,10 @@ namespace Linq
             // DelegateTest.TestAction();
             // DelegateTest.TestPredicate();
 
-            LinqTest.TestLinqWhere();
+            //LinqTest.TestLinqWhere();
+            //LinqTest.TestLinqJoin();
+            //LinqTest.TestSelectNew();
+            LinqTest.TestLinqGroup();
         }
     }
 }
