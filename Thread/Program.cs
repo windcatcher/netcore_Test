@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace Thread
+namespace ThreadTest
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            AsyncTest.TestAsync();
         }
     }
 }

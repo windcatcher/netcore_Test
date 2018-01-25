@@ -9,36 +9,41 @@ namespace Linq
         public static void TestAction()
         {
             string value = "Action Delegate";
-            var method = new Action<string>(p => { Console.WriteLine(p); });
+            var method = new Action<string>(p =>
+            {
+                Console.WriteLine(p);
+            });
             method(value);
+
+            Console.ReadKey();
         }
 
         //Predicate泛型委托, 布尔
-        public void TestPredicate()
+        public static void TestPredicate()
         {
             var arr = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8 };
-            var isMore = new Predicate<int>(p=> { return p > 3; });
-            //var printMethod = new Action<IList<int>, Predicate<int>>(arr, )
+            var isMore = new Predicate<int>(p => { return p > 3; });
+            var printMethod = new Action<List<int>, Predicate<int>>((pArr, pPredi) =>
+                {
+                    Console.WriteLine("Predicate 测试");
+                    pArr.FindAll(pPredi).ForEach(p => { Console.WriteLine("数据内大于3的项={0}", p); });
+                    Console.ReadKey();
+                });
+            printMethod(arr, isMore);
         }
 
-        public void TestFunc()
+        public static void TestFunc()
         {
             var method = new Func<int, int, string>((a, b) =>
              {
                  var c = a + b;
                  return (c).ToString();
              });
-            Console.WriteLine("Func<int, int, string>((a, b) 的计算加法结果" + method(1, 2));
+            var resultStr = "Func<int, int, string>((a, b) 的计算加法结果" + method(1, 2);
+            Console.WriteLine(resultStr);
+            Console.ReadKey();
         }
 
-        static bool More(int item)
-        {
-            return item > 3;
-        }
-        static bool Less(int item)
-        {
-            return item < 3;
-        }
 
     }
 }

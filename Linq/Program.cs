@@ -6,7 +6,8 @@ namespace Linq
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            // DelegateTest.TestAction();
+              DelegateTest.TestPredicate();
         }
     }
 }
