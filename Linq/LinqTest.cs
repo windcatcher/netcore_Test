@@ -6,8 +6,17 @@ using Linq;
 
 namespace Linq
 {
+    /*
+    from[type] id in source
+    [join[type] id in source on expr equals expr[into subGroup]]
+    [from[type] id in source | let id = expr | where condition]
+    [orderby ordering, ordering, ordering...]
+    select expr | group expr by key
+    [into id query] */
     public class LinqTest
     {
+
+
 
         //选择结果
         public void TestSelect()
@@ -25,5 +34,12 @@ namespace Linq
             Console.WriteLine("大于3的项");
             result.ForEach(p => { Console.WriteLine(p); });
         }
+
+        //group
+
+        //max
+
+        //join
+
     }
 }
