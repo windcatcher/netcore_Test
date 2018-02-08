@@ -7,7 +7,12 @@ namespace Linq
         static void Main(string[] args)
         {
             // DelegateTest.TestAction();
-              DelegateTest.TestPredicate();
+            // DelegateTest.TestPredicate();
+
+            //LinqTest.TestLinqWhere();
+            //LinqTest.TestLinqJoin();
+            //LinqTest.TestSelectNew();
+            LinqTest.TestLinqGroup();
         }
     }
 }
