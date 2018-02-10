@@ -1,0 +1,84 @@
+﻿@model CodeFirstEcom.BbsBuyer
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>BbsBuyer</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Username)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Username)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Password)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Password)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RealName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RealName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.RegisterTime)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RegisterTime)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Province)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Province)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Town)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Town)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Addr)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Addr)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDel)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsDel)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
