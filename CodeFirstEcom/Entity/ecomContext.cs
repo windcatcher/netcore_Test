@@ -29,10 +29,7 @@ namespace CodeFirstEcom
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseMySql("Server=localhost;User=root;Password=root;Database=ecom1");
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -48,8 +45,7 @@ namespace CodeFirstEcom
             // var optionsBuilder =  new DbContextOptionsBuilder<CatalogContext>()
             //   .UseSqlServer("Server=.;Initial Catalog=Microsoft.eShopOnContainers.Services.CatalogDb;Integrated Security=true");
             
-            var optionsBuilder = new DbContextOptionsBuilder<ecomContext>()
-              .UseMySql("Server=localhost;User=root;Password=root;Database=ecom1");
+            var optionsBuilder = new DbContextOptionsBuilder<ecomContext>() .UseMySql("Server=localhost;User=root;Password=root;Database=ecom1");
 
             return new ecomContext(optionsBuilder.Options);
         }

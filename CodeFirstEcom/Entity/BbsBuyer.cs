@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CodeFirstEcom
 {
+
     public partial class BbsBuyer
     {
         public BbsBuyer()

@@ -19,6 +19,11 @@ namespace CodeFirstEcom.Entity
                 context.BbsBuyer.AddRange(GetPreconfiguredBbsBuyers());
                 await context.SaveChangesAsync();
             }
+            //if (!context.BbsBrand.Any())
+            //{
+            //    context.BbsBrand.AddRange(GetPreconfiguredBbsBrands());
+            //    await context.SaveChangesAsync();
+            //}
         }
 
         private IEnumerable<BbsBuyer> GetPreconfiguredBbsBuyers()
@@ -28,6 +33,13 @@ namespace CodeFirstEcom.Entity
                 new BbsBuyer(){Username="fbb2014",Password="e10adc3949ba59abbe56e057f20f883e",Email="112624349@qq.com",Gender="WOMAN",RealName="范冰冰",Province="120000",City="120100",Town="120105",Addr="海淀区建材城西路100号",IsDel=1},
             };
         }
+        //private IEnumerable<BbsBrand> GetPreconfiguredBbsBrands()
+        //{
+        //    return new List<BbsBrand>()
+        //    {
+        //        new BbsBrand(){Username="fbb2014",Password="e10adc3949ba59abbe56e057f20f883e",Email="112624349@qq.com",Gender="WOMAN",RealName="范冰冰",Province="120000",City="120100",Town="120105",Addr="海淀区建材城西路100号",IsDel=1},
+        //    };
+        //}
     }
 
     public static class IWebHostExtensions
