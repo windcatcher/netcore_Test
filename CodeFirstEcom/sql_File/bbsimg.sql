@@ -6,7 +6,7 @@ CREATE TABLE `bbsimg` (
   `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `productid` int(11) DEFAULT NULL COMMENT '商品ID',
   `url` varchar(80) DEFAULT NULL COMMENT '图片URL',
-  `isdef` tinyint(1) DEFAULT NULL COMMENT '是否默认:0否 1:是',
+  `isdef` tinyint(4) DEFAULT NULL COMMENT '是否默认:0否 1:是',
   PRIMARY KEY (`id`),
   KEY `productid` (`productid`),
   CONSTRAINT `bbsimgibfk1` FOREIGN KEY (`productid`) REFERENCES `bbsproduct` (`id`)

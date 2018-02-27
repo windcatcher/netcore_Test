@@ -14,7 +14,7 @@ CREATE TABLE `bbsbuyer` (
   `city` varchar(11) DEFAULT NULL COMMENT '市ID',
   `town` varchar(11) DEFAULT NULL COMMENT '县ID',
   `addr` varchar(255) DEFAULT NULL COMMENT '地址',
-  `isdel` tinyint(1) DEFAULT NULL COMMENT '是否已删除:1:未,0:删除了',
+  `isdel` tinyint(4) DEFAULT NULL COMMENT '是否已删除:1:未,0:删除了',
   PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购买者';
 

@@ -7,7 +7,7 @@ CREATE TABLE `bbsfeature` (
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
   `value` varchar(255) DEFAULT NULL,
   `sort` int(11) DEFAULT NULL COMMENT '前台排序',
-  `isdel` tinyint(1) DEFAULT NULL COMMENT '是否废弃:1:未废弃,0:废弃了',
+  `isdel` tinyint(4) DEFAULT NULL COMMENT '是否废弃:1:未废弃,0:废弃了',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='属性表';
 

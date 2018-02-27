@@ -29,7 +29,7 @@ namespace CodeFirstEcom
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseMySql("Server=localhost;User=root;Password=root;Database=ecom1");
+                optionsBuilder.UseMySql("Server=localhost;User=root;Password=root;Database=ecom2");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -45,7 +45,7 @@ namespace CodeFirstEcom
             // var optionsBuilder =  new DbContextOptionsBuilder<CatalogContext>()
             //   .UseSqlServer("Server=.;Initial Catalog=Microsoft.eShopOnContainers.Services.CatalogDb;Integrated Security=true");
             
-            var optionsBuilder = new DbContextOptionsBuilder<ecomContext>() .UseMySql("Server=localhost;User=root;Password=root;Database=ecom1");
+            var optionsBuilder = new DbContextOptionsBuilder<ecomContext>() .UseMySql("Server=localhost;User=root;Password=root;Database=ecom2");
 
             return new ecomContext(optionsBuilder.Options);
         }

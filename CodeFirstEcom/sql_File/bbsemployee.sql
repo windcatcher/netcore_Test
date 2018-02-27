@@ -7,12 +7,12 @@ CREATE TABLE `bbsemployee` (
   `password` varchar(20) NOT NULL COMMENT '密码',
   `degree` varchar(10) DEFAULT NULL COMMENT '学历',
   `email` varchar(40) DEFAULT NULL COMMENT '邮箱',
-  `gender` tinyint(1) DEFAULT NULL COMMENT '性别 ',
+  `gender` tinyint(4) DEFAULT NULL COMMENT '性别 ',
   `imgurl` varchar(41) DEFAULT NULL COMMENT '图片(头像)',
   `phone` varchar(18) DEFAULT NULL COMMENT '手机',
   `realname` varchar(8) DEFAULT NULL COMMENT '真实名字',
   `school` varchar(20) DEFAULT NULL COMMENT '毕业学校',
-  `isdel` tinyint(1) NOT NULL COMMENT '是否删除 1:未删除 0:删除',
+  `isdel` tinyint(4) NOT NULL COMMENT '是否删除 1:未删除 0:删除',
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工';
 

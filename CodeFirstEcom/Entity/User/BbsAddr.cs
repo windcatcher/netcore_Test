@@ -11,7 +11,7 @@ namespace CodeFirstEcom
         public string City { get; set; }
         public string Addr { get; set; }
         public string Phone { get; set; }
-        public int IsDef { get; set; }
+        public sbyte IsDef { get; set; }
 
         public BbsBuyer Buyer { get; set; }
     }

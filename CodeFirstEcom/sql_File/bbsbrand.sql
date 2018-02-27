@@ -9,7 +9,7 @@ CREATE TABLE `bbsbrand` (
   `imgurl` varchar(80) DEFAULT NULL COMMENT '图片Url',
   `website` varchar(80) DEFAULT NULL COMMENT '品牌网址',
   `sort` int(11) DEFAULT NULL COMMENT '排序:最大最排前',
-  `isdisplay` tinyint(1) DEFAULT NULL COMMENT '是否可见 1:可见 0:不可见',
+  `isdisplay` tinyint(4) DEFAULT NULL COMMENT '是否可见 1:可见 0:不可见',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COMMENT='品牌';
 

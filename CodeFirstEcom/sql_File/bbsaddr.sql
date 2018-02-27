@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS `bbsaddr`;
   `city` VARCHAR(255) DEFAULT NULL,
   `addr` VARCHAR(400) NOT NULL COMMENT '收货地址',
   `phone` VARCHAR(60) NOT NULL COMMENT '手机号或是固定电话号',
-  `isdef` INT(1) NOT NULL COMMENT '是否默认',
+  `isdef` tinyint(4) NOT NULL COMMENT '是否默认',
   PRIMARY KEY (`id`),
   KEY `buyerid` (`buyerid`),
   KEY `IX_BbsAddr_BuyerId1` (`BuyerId`),
