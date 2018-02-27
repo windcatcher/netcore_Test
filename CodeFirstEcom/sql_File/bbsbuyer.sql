@@ -3,6 +3,7 @@
 -- ----------------------------
 DROP TABLE IF EXISTS `bbsbuyer`;
 CREATE TABLE `bbsbuyer` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(18) NOT NULL COMMENT '用户名',
   `password` varchar(32) DEFAULT NULL COMMENT '密码',
   `gender` varchar(8) DEFAULT NULL,
@@ -14,7 +15,7 @@ CREATE TABLE `bbsbuyer` (
   `town` varchar(11) DEFAULT NULL COMMENT '县ID',
   `addr` varchar(255) DEFAULT NULL COMMENT '地址',
   `isdel` tinyint(1) DEFAULT NULL COMMENT '是否已删除:1:未,0:删除了',
-  PRIMARY KEY (`username`)
+  PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='购买者';
 
 -- ----------------------------

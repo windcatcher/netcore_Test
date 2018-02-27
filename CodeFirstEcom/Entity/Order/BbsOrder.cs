@@ -23,7 +23,7 @@ namespace CodeFirstEcom
         public sbyte State { get; set; }
         public DateTime CreateDate { get; set; }
         public string Note { get; set; }
-        public string BuyerId { get; set; }
+        public int BuyerId { get; set; }
 
         public BbsBuyer Buyer { get; set; }
         public ICollection<BbsDetail> BbsDetail { get; set; }
