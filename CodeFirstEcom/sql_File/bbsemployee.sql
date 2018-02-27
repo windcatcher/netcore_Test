@@ -19,5 +19,5 @@ CREATE TABLE `bbsemployee` (
 -- ----------------------------
 -- Records of bbsemployee
 -- ----------------------------
-INSERT INTO bbsemployee VALUES ('admin', '123456', null, null, '1', null, null, '系统管理员', null, '1');
-INSERT INTO bbsemployee VALUES ('zhangsan', '123456', null, null, null, null, null, null, null, '1');
+INSERT INTO bbsemployee(username,password,degree,email,gender,imgurl,phone,realname,school,isdel) VALUES ('admin', '123456', null, null, '1', null, null, '系统管理员', null, '1');
+INSERT INTO bbsemployee(username,password,degree,email,gender,imgurl,phone,realname,school,isdel) VALUES ('zhangsan', '123456', null, null, null, null, null, null, null, '1');

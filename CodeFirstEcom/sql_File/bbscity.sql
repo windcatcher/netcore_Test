@@ -3,12 +3,12 @@
 -- ----------------------------
 DROP TABLE IF EXISTS `bbscity`;
 CREATE TABLE `bbscity` (
-  `id` int(11) NOT NULL AUTOINCREMENT COMMENT '主键',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code` char(6) NOT NULL COMMENT '城市编码',
   `name` varchar(40) NOT NULL COMMENT '城市名称',
   `province` char(6) NOT NULL COMMENT '所属省份编码',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTOINCREMENT=346 DEFAULT CHARSET=utf8 COMMENT='城市信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=346 DEFAULT CHARSET=utf8 COMMENT='城市信息表';
 
 -- ----------------------------
 -- Records of bbscity

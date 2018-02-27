@@ -3,7 +3,7 @@
 -- ----------------------------
 DROP TABLE IF EXISTS `bbsorder`;
 CREATE TABLE `bbsorder` (
-  `id` int(11) NOT NULL AUTOINCREMENT COMMENT 'ID',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `oid` varchar(36) NOT NULL COMMENT '订单号',
   `deliverfee` decimal(10,2) NOT NULL COMMENT '运费',
   `payablefee` double NOT NULL COMMENT '应付金额',
@@ -20,7 +20,7 @@ CREATE TABLE `bbsorder` (
   PRIMARY KEY (`id`),
   KEY `buyerid` (`buyerid`),
   CONSTRAINT `bbsorderibfk1` FOREIGN KEY (`buyerid`) REFERENCES `bbsbuyer` (`username`)
-) ENGINE=InnoDB AUTOINCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='订单';
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='订单';
 
 -- ----------------------------
 -- Records of bbsorder

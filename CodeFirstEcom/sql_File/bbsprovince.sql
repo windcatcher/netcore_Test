@@ -3,11 +3,11 @@
 -- ----------------------------
 DROP TABLE IF EXISTS `bbsprovince`;
 CREATE TABLE `bbsprovince` (
-  `id` int(11) NOT NULL AUTOINCREMENT COMMENT '主键',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '主键',
   `code` char(6) NOT NULL COMMENT '省份编码',
   `name` varchar(40) NOT NULL COMMENT '省份名称',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTOINCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='省份信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 COMMENT='省份信息表';
 
 -- ----------------------------
 -- Records of bbsprovince

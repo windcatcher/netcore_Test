@@ -20,4 +20,4 @@ CREATE TABLE `bbsbuyer` (
 -- ----------------------------
 -- Records of bbsbuyer
 -- ----------------------------
-INSERT INTO bbsbuyer VALUES ('fbb2014', 'e10adc3949ba59abbe56e057f20f883e', 'WOMAN', '112624349@qq.com', '范冰冰', '2014-10-27 11:31:00', '120000', '120100', '120105', '海淀区建材城西路100号', '1');
+INSERT INTO bbsbuyer(username,password,gender,email,realname,registertime,province,city,town,addr,isdel) VALUES ('fbb2014', 'e10adc3949ba59abbe56e057f20f883e', 'WOMAN', '112624349@qq.com', '范冰冰', '2014-10-27 11:31:00', '120000', '120100', '120105', '海淀区建材城西路100号', '1');

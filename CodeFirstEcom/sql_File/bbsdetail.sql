@@ -3,7 +3,7 @@
 -- ----------------------------
 DROP TABLE IF EXISTS `bbsdetail`;
 CREATE TABLE `bbsdetail` (
-  `id` int(11) NOT NULL AUTOINCREMENT COMMENT 'ID',
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `orderid` int(11) NOT NULL COMMENT '订单ID',
   `productno` varchar(255) DEFAULT NULL COMMENT '商品编号',
   `productname` varchar(255) DEFAULT NULL COMMENT '商品名称',
@@ -14,7 +14,7 @@ CREATE TABLE `bbsdetail` (
   PRIMARY KEY (`id`),
   KEY `fkorderid` (`orderid`),
   CONSTRAINT `fkorderid` FOREIGN KEY (`orderid`) REFERENCES `bbsorder` (`id`)
-) ENGINE=InnoDB AUTOINCREMENT=50 DEFAULT CHARSET=utf8 COMMENT='订单详情';
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8 COMMENT='订单详情';
 
 -- ----------------------------
 -- Records of bbsdetail
