@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "log4netForTest", "log4netForTest\log4netForTest.csproj", "{DB6B5673-A6C8-4165-91A3-DDFEBD8BAF87}"
 EndProject
@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "setting", "setting\setting.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Startup", "Startup\Startup.csproj", "{32DF5BFC-4A41-4007-A1BD-A55F5CAF11BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "login", "login\login.csproj", "{5D1F17EF-1ABB-46DE-B4FA-97F2A1A3CEC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "login", "login\login.csproj", "{5D1F17EF-1ABB-46DE-B4FA-97F2A1A3CEC7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuth", "JwtAuth\JwtAuth.csproj", "{C6517243-7308-4D7C-A454-585684F22B07}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{5D1F17EF-1ABB-46DE-B4FA-97F2A1A3CEC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D1F17EF-1ABB-46DE-B4FA-97F2A1A3CEC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D1F17EF-1ABB-46DE-B4FA-97F2A1A3CEC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6517243-7308-4D7C-A454-585684F22B07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6517243-7308-4D7C-A454-585684F22B07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6517243-7308-4D7C-A454-585684F22B07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6517243-7308-4D7C-A454-585684F22B07}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
