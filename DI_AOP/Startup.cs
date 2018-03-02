@@ -8,11 +8,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using login.Data;
-using login.Models;
-using login.Services;
+using DI_AOP.Data;
+using DI_AOP.Models;
+using DI_AOP.Services;
+using DI_AOP.Interfaces;
 
-namespace login
+namespace DI_AOP
 {
     public class Startup
     {
@@ -32,19 +33,12 @@ namespace login
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-            services.Configure<IdentityOptions>(options => {
-                // Password settings
-                options.Password.RequireDigit = true;
-                //options.Password.RequiredLength = 8;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-                //options.Password.RequiredUniqueChars = 6;
-            });
+
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+            services.AddScoped<ICharacterRepository, CharacterRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,7 +58,6 @@ namespace login
             app.UseStaticFiles();
 
             app.UseAuthentication();
-           app.
 
             app.UseMvc(routes =>
             {
