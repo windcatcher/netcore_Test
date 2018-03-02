@@ -71,7 +71,6 @@ namespace login
             app.UseStaticFiles();
 
             app.UseAuthentication();
-           app.
 
             app.UseMvc(routes =>
             {
