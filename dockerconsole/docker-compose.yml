@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    consoleapp:
+        #构建名为consoleapp_img的镜像
+        image: consoleapp_img
+        build:
+            #docker-compose.yml的当前根目录
+            context: .
+            #根目录下的Dockerfile文件
+            dockerfile: Dockerfile
+        #运行容器，名为consoleapp_c
+        container_name: consoleapp_c
+        

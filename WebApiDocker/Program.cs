@@ -20,6 +20,7 @@ namespace WebApiDocker
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
+                .UseUrls("http://*:5001")
                 .Build();
     }
 }
