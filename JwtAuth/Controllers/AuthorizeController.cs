@@ -11,7 +11,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace JwtAuth.Controllers {
-    [Route ("api/[controller]")]
+   // [Route ("api/[controller]")]
     public class AuthorizeController : Controller {
 
         private JwtSetting _jwtSetting;
@@ -35,6 +35,32 @@ namespace JwtAuth.Controllers {
         /// <returns></returns>
         [HttpPost]
         public IActionResult Token ([FromBody] LoginViewModel viewModel) {
+            if (!ModelState.IsValid)
+                return BadRequest ();
+            if (!(viewModel.User == "lms" && viewModel.Pwd == "123456"))
+                return BadRequest ();
+            var claims = new Claim[] {
+                new Claim (ClaimTypes.Name, "lms"),
+                new Claim (ClaimTypes.Role, "admin")
+            };
+            var key = new SymmetricSecurityKey (Encoding.UTF8.GetBytes (_jwtSetting.ScrectKey));
+            var credit = new SigningCredentials (key, SecurityAlgorithms.Aes128CbcHmacSha256);
+
+            var token = new JwtSecurityToken (
+                _jwtSetting.Issuser,
+                _jwtSetting.Audience,
+                claims,
+                DateTime.Now,
+                DateTime.Now.AddMinutes (30),
+                credit
+            );
+
+            return Ok (new { token = new JwtSecurityTokenHandler ().WriteToken (token) });
+        }
+
+      
+       [HttpGet]
+        public IActionResult Token1 ([FromBody] LoginViewModel viewModel) {
             if (!ModelState.IsValid)
                 return BadRequest ();
             if (!(viewModel.User == "lms" && viewModel.Pwd == "123456"))

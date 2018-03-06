@@ -39,7 +39,8 @@ namespace login
                 microsoftOptions.ClientSecret = Configuration["Authentication:Microsoft:Password"];
             });
 
-            services.Configure<IdentityOptions>(options => {
+            services.Configure<IdentityOptions>(options =>
+            {
                 // Password settings
                 options.Password.RequireDigit = true;
                 //options.Password.RequiredLength = 8;
@@ -57,6 +58,7 @@ namespace login
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            Console.WriteLine("EnvironmentName=" + env.EnvironmentName);
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();

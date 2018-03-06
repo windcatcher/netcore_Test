@@ -1,0 +1,22 @@
+version: '3'
+
+services:
+    redis:
+        #构建redis镜像
+        image: redis:alpine
+        container_name: redis-nosql # 容器名
+        restart: always
+        ports:
+          - '7379:6379'  #host物理直接映射端口为7379
+
+    webapi:
+      image: webapiredis
+      container_name: webapi_redis_c # 容器名
+      build:
+        context: .
+        dockerfile: Dockerfile  
+      ports:
+        - '8000:80'  #host物理直接映射端口为8000  
+      depends_on:
+        - redis
+      

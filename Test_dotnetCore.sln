@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2024
+VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "log4netForTest", "log4netForTest\log4netForTest.csproj", "{DB6B5673-A6C8-4165-91A3-DDFEBD8BAF87}"
 EndProject
@@ -31,7 +31,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Startup", "Startup\Startup.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "login", "login\login.csproj", "{5D1F17EF-1ABB-46DE-B4FA-97F2A1A3CEC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DI_AOP", "DI_AOP\DI_AOP.csproj", "{53E96730-CDB1-489E-82EA-7C347890CA1D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DI_AOP", "DI_AOP\DI_AOP.csproj", "{53E96730-CDB1-489E-82EA-7C347890CA1D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dockerconsole", "dockerconsole\dockerconsole.csproj", "{42715B6E-4895-4C83-8DB4-DAF1454106CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webapi_mysql_dockercompose", "Webapi_mysql_dockercompose\Webapi_mysql_dockercompose.csproj", "{176058DD-8D6B-4A82-9DEA-EE0DCACABB50}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webapi_redis_docker", "webapi_redis_docker\webapi_redis_docker.csproj", "{2440C24C-914A-440E-86BC-C44D4FDC2357}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -99,6 +105,18 @@ Global
 		{53E96730-CDB1-489E-82EA-7C347890CA1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53E96730-CDB1-489E-82EA-7C347890CA1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53E96730-CDB1-489E-82EA-7C347890CA1D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42715B6E-4895-4C83-8DB4-DAF1454106CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42715B6E-4895-4C83-8DB4-DAF1454106CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42715B6E-4895-4C83-8DB4-DAF1454106CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42715B6E-4895-4C83-8DB4-DAF1454106CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{176058DD-8D6B-4A82-9DEA-EE0DCACABB50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{176058DD-8D6B-4A82-9DEA-EE0DCACABB50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{176058DD-8D6B-4A82-9DEA-EE0DCACABB50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{176058DD-8D6B-4A82-9DEA-EE0DCACABB50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2440C24C-914A-440E-86BC-C44D4FDC2357}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2440C24C-914A-440E-86BC-C44D4FDC2357}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2440C24C-914A-440E-86BC-C44D4FDC2357}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2440C24C-914A-440E-86BC-C44D4FDC2357}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
