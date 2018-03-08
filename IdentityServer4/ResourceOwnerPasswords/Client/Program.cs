@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Client
 {
     class Program
-    {
+    {   
         static void Main(string[] args)
         {
             MainAsync().GetAwaiter().GetResult();
