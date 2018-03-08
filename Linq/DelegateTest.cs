@@ -9,7 +9,7 @@ namespace Linq
         public static void TestAction()
         {
             string value = "Action Delegate";
-            var method = new Action<string>(p =>
+            var method = new Action<string>((p) =>
             {
                 Console.WriteLine(p);
             });
@@ -32,6 +32,9 @@ namespace Linq
             printMethod(arr, isMore);
         }
 
+        /// <summary>
+        /// Func是多参数能返回值的委托申明
+        /// </summary>
         public static void TestFunc()
         {
             var method = new Func<int, int, string>((a, b) =>
