@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Webapi_mysql_dockercompose"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webapi_redis_docker", "webapi_redis_docker\webapi_redis_docker.csproj", "{2440C24C-914A-440E-86BC-C44D4FDC2357}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieLogin", "CookieLogin\CookieLogin.csproj", "{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{2440C24C-914A-440E-86BC-C44D4FDC2357}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2440C24C-914A-440E-86BC-C44D4FDC2357}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2440C24C-914A-440E-86BC-C44D4FDC2357}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
