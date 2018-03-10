@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ResourceOwnerClient", "ResourceOwnerClient\ResourceOwnerClient.csproj", "{1B846145-0849-49B5-A28A-DC2129346886}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{B9614AAA-ECD4-47DE-8973-A6077F2640AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{B9614AAA-ECD4-47DE-8973-A6077F2640AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcClient", "MvcClient\MvcClient.csproj", "{F8154FCA-C630-4F61-A216-8F3341B0BBEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcClient", "MvcClient\MvcClient.csproj", "{F8154FCA-C630-4F61-A216-8F3341B0BBEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{D689E17F-CD2B-4B7D-BBC2-3195A4E8CBAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +44,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{19498230-022F-4873-AE43-F27FBE50BBB5} = {D689E17F-CD2B-4B7D-BBC2-3195A4E8CBAB}
+		{1B846145-0849-49B5-A28A-DC2129346886} = {D689E17F-CD2B-4B7D-BBC2-3195A4E8CBAB}
+		{F8154FCA-C630-4F61-A216-8F3341B0BBEE} = {D689E17F-CD2B-4B7D-BBC2-3195A4E8CBAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEE0CC89-B8F6-441B-9493-A8E38244C340}
