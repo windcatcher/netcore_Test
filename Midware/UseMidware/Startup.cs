@@ -44,19 +44,19 @@ namespace UseMidware
 
             app.Use(async (context, next) =>
             {
-                await context.Response.WriteAsync("1:before start。。");
+                await context.Response.WriteAsync("1:before start...");
                 await next.Invoke();
             });
 
-            app.Use((next) =>
-           {
+            app.Use((next) =>{
                return (context) =>
                {
-                   context.Response.WriteAsync("2:middwr start。。。");
+                   context.Response.WriteAsync("2:middwr start...");
                    return next(context);
                };
            });
 
+            app.UseMyRequestMiddle();
             app.Run(async (context) =>
             {
                 await context.Response.WriteAsync("start ....");
