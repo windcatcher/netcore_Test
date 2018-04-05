@@ -1,0 +1,32 @@
+﻿{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/user",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8801
+        }
+      ],
+      "UpstreamPathTemplate": "/user", //上游请求地址为 http://testapi.com/user
+      "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/product",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8802
+        }
+      ],
+      "UpstreamPathTemplate": "/product", //上游请求地址为 http://testapi.com/user
+      "UpstreamHttpMethod": [ "Get" ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://testapi.com" //使用switchhosts配置dns 127.0.0.1	testapi.com
+    //"BaseUrl": "http://localhost:5000",
+  }
+}
