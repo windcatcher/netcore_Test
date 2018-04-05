@@ -13,8 +13,17 @@ namespace UseMidware
     {
         public void ConfigureServices(IServiceCollection services)
         {
+
         }
 
+
+        public static void HandleMapTest2(IApplicationBuilder app)
+        {
+            app.Run(async context =>
+            {
+                await context.Response.WriteAsync("Map Test 1");
+            });
+        }
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -22,11 +31,13 @@ namespace UseMidware
                 app.UseDeveloperExceptionPage();
             }
 
+            app.Map("/map", HandleMapTest2);
+
             app.Map("/task", taskApp =>
             {
                 taskApp.Run(async context =>
                 {
-                    await context.Response.WriteAsync("this is map about task page");
+                    await context.Response.WriteAsync("this is a task");
                 });
             });
 

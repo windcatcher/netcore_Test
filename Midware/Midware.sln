@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UseMidware", "UseMidware\UseMidware.csproj", "{85362F17-CC5F-43F9-968E-A38DEB504EE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPipeLine", "MyPipeLine\MyPipeLine.csproj", "{4532C967-7066-4A7E-A0FF-7B9AC74AA515}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{85362F17-CC5F-43F9-968E-A38DEB504EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85362F17-CC5F-43F9-968E-A38DEB504EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85362F17-CC5F-43F9-968E-A38DEB504EE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4532C967-7066-4A7E-A0FF-7B9AC74AA515}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4532C967-7066-4A7E-A0FF-7B9AC74AA515}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4532C967-7066-4A7E-A0FF-7B9AC74AA515}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4532C967-7066-4A7E-A0FF-7B9AC74AA515}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
