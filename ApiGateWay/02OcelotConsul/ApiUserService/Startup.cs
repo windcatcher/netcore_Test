@@ -41,6 +41,7 @@ namespace ApiUserService
         private void onStart()
         {
             var client = new ConsulClient();
+            client.Config.Address = new Uri("http://127.0.0.1:8500");
             //健康检查
             var httpCheck = new AgentServiceCheck()
             {
