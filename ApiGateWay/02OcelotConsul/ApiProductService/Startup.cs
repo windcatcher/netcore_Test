@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using ApiProductService.config;
 using Consul;
+using DnsClient;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Server.Features;
@@ -39,7 +41,13 @@ namespace ApiProductService
                     cfg.Address = new Uri(serviceConfiguration.Consul.HttpEndpoint);
                 }
             }));
-           
+
+            //服务间发现dns的地址
+            services.AddSingleton<IDnsQuery>(p =>
+            {
+                var serviceConfiguration = p.GetRequiredService<IOptions<ServiceDisvoveryOptions>>().Value;
+                return new LookupClient(IPAddress.Parse(serviceConfiguration.Consul.DnsEndpoint.Address), serviceConfiguration.Consul.DnsEndpoint.Port);
+            });
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -63,7 +71,7 @@ namespace ApiProductService
 
             foreach (var address in addresses)
             {
-                var serviceId = $"{serviceOptions.Value.ServiceName}_{address.Host}:{address.Port}";
+                var serviceId = $"{serviceOptions.Value.RegisterServiceName}_{address.Host}:{address.Port}";
                 //健康检查
                 var httpCheck = new AgentServiceCheck()
                 {
@@ -77,7 +85,7 @@ namespace ApiProductService
                     Checks = new[] { httpCheck },
                     Address = address.Host,//API服务地址
                     ID = serviceId,//API服务id
-                    Name = serviceOptions.Value.ServiceName,//服务名称
+                    Name = serviceOptions.Value.RegisterServiceName,//服务名称
                     Port = address.Port//api端口
                 };
 
