@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiUserService", "ApiUserSe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiProductService", "ApiProductService\ApiProductService.csproj", "{39E6AC72-7744-4C28-BA67-6C9F91569A57}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiUserService02", "ApiUserService02\ApiUserService02.csproj", "{2A51B2BC-7E76-4109-BC36-3BABC077FD21}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{39E6AC72-7744-4C28-BA67-6C9F91569A57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39E6AC72-7744-4C28-BA67-6C9F91569A57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39E6AC72-7744-4C28-BA67-6C9F91569A57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A51B2BC-7E76-4109-BC36-3BABC077FD21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A51B2BC-7E76-4109-BC36-3BABC077FD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A51B2BC-7E76-4109-BC36-3BABC077FD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A51B2BC-7E76-4109-BC36-3BABC077FD21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
