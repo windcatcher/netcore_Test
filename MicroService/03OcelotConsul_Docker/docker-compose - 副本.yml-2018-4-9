@@ -1,0 +1,70 @@
+version: '3'
+
+services:
+
+    # consulserver:
+    #  #构建consul镜像
+    #   image: progrium/consul:latest
+    #   environment:
+    #     SERVICE_TAGS: consul servers
+    #   hostname: consulserver
+    #   ports:
+    #   - "8300:8300"
+    #   - "8400:8400"
+    #   - "8500:8500"
+    #   - "53:53"
+    #   command: -server -ui-dir /ui -data-dir /tmp/consul -bootstrap-expect 1
+
+    user_service:
+      image: user_service
+      build:
+        context: .
+        dockerfile: /ApiUserService/Dockerfile  
+      ports:
+        - '8801:80'  #host物理直接映射端口为8801  
+      depends_on:
+        - consulserver   
+
+    # product_service:
+    #   image: product_service
+    #   build:
+    #     context: .
+    #     dockerfile: Dockerfile  
+    #   ports:
+    #     - '8802:80'  #host物理直接映射端口为8802  
+    #   depends_on:
+    #     - consulserver
+
+    # identity_service:
+    #   image: identity_service
+    #   build:
+    #     context: .
+    #     dockerfile: Dockerfile  
+    #   ports:
+    #     - '8010:80'  #host物理直接映射端口为8010  
+
+    # ocelotgateway:
+    #   image: ocelotgateway
+    #   build:
+    #     context: .
+    #     dockerfile: Dockerfile  
+    #   ports:
+    #     - '80:80'  #host物理直接映射端口为80  
+    #   depends_on:
+    #     - consulserver
+    #     - user_service
+    #     - product_service
+
+    # simpleclient:
+    #   image: simpleclient
+    #   build:
+    #     context: .
+    #     dockerfile: Dockerfile  
+    #   ports:
+    #     - '8821:80'  #host物理直接映射端口为8821  
+    #   depends_on:
+    #     - ocelotgateway
+    #     - user_service
+    #     - product_service
+
+      

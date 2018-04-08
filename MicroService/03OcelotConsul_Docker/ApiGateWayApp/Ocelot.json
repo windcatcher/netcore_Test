@@ -1,0 +1,59 @@
+﻿{
+  "ReRoutes": [
+    {
+      "DownstreamPathTemplate": "/api/user",
+      "DownstreamScheme": "http",
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 8801
+      //  }
+      //],
+      "UpstreamPathTemplate": "/user", //上游请求地址为 http://testapi.com/user
+      "UpstreamHttpMethod": [ "Get" ],
+      "ServiceName": "user_service", //通过sonsul的服务名称去发现下游的webapi服务
+      "LoadBalancer": "RoundRobin", //使用轮询负载策略
+      "UseServiceDiscovery": true
+    },
+    {
+      // "DownstreamPathTemplate": "/api/product",
+      "DownstreamPathTemplate": "/api/{product}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8802
+        }
+      ],
+
+      "UpstreamPathTemplate": "/{product}", //上游请求地址为 http://testapi.com/user
+      "UpstreamHttpMethod": [ "Get" ],
+      //"ServiceName": "product_service", //通过sonsul的服务名称去发现下游的webapi服务
+      //"LoadBalancer": "RoundRobin", //使用轮询负载策略
+      //"UseServiceDiscovery": true,
+
+      //授权
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "TestKey",
+        "AllowedScopes": []
+      },
+
+      //限流
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s", //多少秒之后客户端可以重试
+        "PeriodTimespan": 1, //多少秒之后客户端可以重试
+        "Limit": 1 //在统计时间段内允许的最大请求数量
+      }
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://testapi.com", //使用switchhosts配置dns 127.0.0.1	testapi.com
+    //"BaseUrl": "http://localhost:5000",
+    "ServiceDiscoveryProvider": {
+      "Host": "localhost",
+      "Port": 8500
+    }
+  }
+}
