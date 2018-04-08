@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
 
@@ -17,6 +20,32 @@ namespace ApiGateWayApp
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            var authenticationProviderKey = "TestKey";
+
+            //identityServer 认证模式
+            services.AddAuthentication()
+                .AddIdentityServerAuthentication(authenticationProviderKey, (options) =>
+                {
+                    options.Authority = "http://localhost:8010";
+                    options.ApiName = "api1";
+                    options.SupportedTokens = SupportedTokens.Both;
+                    options.RequireHttpsMetadata = false;//使用https
+                    options.ApiSecret = "secret";
+                });
+            /* jwtbearer 认证模式
+            services.AddAuthentication((options) =>
+            {
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(authenticationProviderKey, (options) =>
+                 {
+                     options.TokenValidationParameters = new TokenValidationParameters();
+                     options.RequireHttpsMetadata = false;
+                     options.Audience = "api1";//api范围
+                    options.Authority = "http://localhost:8010";//identityserver地址
+                });
+             */
             services.AddOcelot();
         }
 

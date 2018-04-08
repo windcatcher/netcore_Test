@@ -2,8 +2,12 @@
   "iisSettings": {
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
+    "iis": {
+      "applicationUrl": "http://localhost/SimpleClient",
+      "sslPort": 0
+    },
     "iisExpress": {
-      "applicationUrl": "http://localhost:8802/",
+      "applicationUrl": "http://localhost:8821/",
       "sslPort": 0
     }
   },
@@ -11,18 +15,19 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/product",
+      "launchUrl": "/product/ownerpassword",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ApiProductService": {
+    "SimpleClient": {
       "commandName": "Project",
-      "launchUrl": "api/product",
+      "launchBrowser": false,
+      "launchUrl": "/product/ownerpassword",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "http://localhost:8802/"
+      "applicationUrl": "http://localhost:8821"
     }
   }
 }

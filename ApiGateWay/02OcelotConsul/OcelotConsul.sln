@@ -4,12 +4,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiGateWayApp", "ApiGateWayApp\ApiGateWayApp.csproj", "{A9CBD5AE-39F4-472C-A4ED-BE8645678BDB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{39E6AC72-7744-4C28-BA67-6C9F91569A57} = {39E6AC72-7744-4C28-BA67-6C9F91569A57}
+		{200583E3-D6CC-4267-8131-19320B75F3E4} = {200583E3-D6CC-4267-8131-19320B75F3E4}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiUserService", "ApiUserService\ApiUserService.csproj", "{701AF50E-8D89-43F4-8EC9-4F5A2B3AE838}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiProductService", "ApiProductService\ApiProductService.csproj", "{39E6AC72-7744-4C28-BA67-6C9F91569A57}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiUserService02", "ApiUserService02\ApiUserService02.csproj", "{2A51B2BC-7E76-4109-BC36-3BABC077FD21}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{200583E3-D6CC-4267-8131-19320B75F3E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{6FB07EFA-4235-44E3-BA53-9D140DE86EF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleClient", "Client\OwnerPasswordClient\SimpleClient.csproj", "{3EC783CE-B017-4B78-A10E-DC618091AC3B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A9CBD5AE-39F4-472C-A4ED-BE8645678BDB} = {A9CBD5AE-39F4-472C-A4ED-BE8645678BDB}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +46,20 @@ Global
 		{2A51B2BC-7E76-4109-BC36-3BABC077FD21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A51B2BC-7E76-4109-BC36-3BABC077FD21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A51B2BC-7E76-4109-BC36-3BABC077FD21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{200583E3-D6CC-4267-8131-19320B75F3E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{200583E3-D6CC-4267-8131-19320B75F3E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{200583E3-D6CC-4267-8131-19320B75F3E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{200583E3-D6CC-4267-8131-19320B75F3E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3EC783CE-B017-4B78-A10E-DC618091AC3B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3EC783CE-B017-4B78-A10E-DC618091AC3B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3EC783CE-B017-4B78-A10E-DC618091AC3B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3EC783CE-B017-4B78-A10E-DC618091AC3B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3EC783CE-B017-4B78-A10E-DC618091AC3B} = {6FB07EFA-4235-44E3-BA53-9D140DE86EF6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {29871066-14D6-45FF-8899-80D32031059A}
