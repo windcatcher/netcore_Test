@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "webapi_redis_docker", "weba
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookieLogin", "CookieLogin\CookieLogin.csproj", "{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JwtAuth", "JwtAuth\JwtAuth.csproj", "{B778E2B9-B85B-4161-9816-D959015B85BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA96C5F7-1204-45F5-91E4-72C3F6AEC18D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B778E2B9-B85B-4161-9816-D959015B85BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B778E2B9-B85B-4161-9816-D959015B85BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B778E2B9-B85B-4161-9816-D959015B85BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B778E2B9-B85B-4161-9816-D959015B85BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
