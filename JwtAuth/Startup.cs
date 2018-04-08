@@ -23,7 +23,7 @@ namespace JwtAuth {
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices (IServiceCollection services) {
             //
-            services.Configure<JwtSetting> (Configuration);
+            services.Configure<JwtSetting> (Configuration.GetSection("JwtSetting"));
             var jwtSetting = new JwtSetting ();
             Configuration.Bind ("JwtSetting", jwtSetting);
             services.AddAuthentication (Options => {
@@ -47,7 +47,7 @@ namespace JwtAuth {
                 app.UseDeveloperExceptionPage ();
             }
             app.UseAuthentication ();
-            app.UseMvc ();
+            app.UseMvcWithDefaultRoute();
         }
     }
 }
