@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using ApiProductService.config;
+using Consul;
 using DnsClient;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,22 +20,41 @@ namespace ApiProductService.Controllers
     {
         private readonly IDnsQuery _dns;
         private readonly IOptions<ServiceDisvoveryOptions> _options;
+        private IConsulClient _consulClient;
 
-
-        public UserInfoController(IDnsQuery dns, IOptions<ServiceDisvoveryOptions> options)
+        public UserInfoController(IDnsQuery dns, IOptions<ServiceDisvoveryOptions> options, IConsulClient consulClient)
         {
             _dns = dns ?? throw new ArgumentNullException(nameof(dns));
             _options = options ?? throw new ArgumentNullException(nameof(options));
+            _consulClient = consulClient ?? throw new ArgumentNullException(nameof(consulClient));
         }
         [HttpGet("")]
         [HttpHead("")]
         public async Task<string> Get()
+        {
+            return await ByConsulClient();
+        }
+
+        private async Task<string> ByDnsClient()
         {
             var result = await _dns.ResolveServiceAsync("service.consul", _options.Value.DiscoveryServiceName);
             var address = result.First();
             using (var client = new HttpClient())
             {
                 var _userApiUrl = $"http://{address.HostName}:{address.Port}";
+                var serviceResult = await client.GetStringAsync($"{_userApiUrl}/api/user");
+                return serviceResult;
+            }
+        }
+
+        private async Task<string> ByConsulClient()
+        {
+            var result = await _consulClient.Catalog.Service(_options.Value.DiscoveryServiceName);
+            var resp = result.Response;
+            var address = resp.First();
+            using (var client = new HttpClient())
+            {
+                var _userApiUrl = $"http://{address.ServiceAddress}:{address.ServicePort}";
                 var serviceResult = await client.GetStringAsync($"{_userApiUrl}/api/user");
                 return serviceResult;
             }

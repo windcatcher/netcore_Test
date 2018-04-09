@@ -47,12 +47,21 @@
       }
     }
   ],
+
   "GlobalConfiguration": {
+    //local
     //"BaseUrl": "http://testapi.com", //使用switchhosts配置dns 127.0.0.1	testapi.com
-    "BaseUrl": "http://localhost",
+    //"BaseUrl": "http://localhost",
+    //"ServiceDiscoveryProvider": {
+    //  //"Host": "consulserver",
+    //  "Host": "localhost",
+    //  "Port": 8500
+    //},
+
+    //docker
+    "BaseUrl": "http://ocelotgateway",
     "ServiceDiscoveryProvider": {
-      //"Host": "consulserver",
-      "Host": "localhost",
+      "Host": "consulserver",
       "Port": 8500
     }
   }

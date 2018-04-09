@@ -9,7 +9,6 @@ namespace ApiUserService
     public class ServiceDisvoveryOptions
     {
         public string RegisterServiceName { get; set; }
-
         public string ConsulUrl { get; set; }
         public string RegisterServerUrl { get; set; }
     }

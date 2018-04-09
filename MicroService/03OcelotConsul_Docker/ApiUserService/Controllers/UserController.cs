@@ -3,17 +3,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace ApiUserService.Controllers
 {
     [Route("api/[controller]")]
     public class UserController : Controller
     {
+        private readonly IOptions<ServiceDisvoveryOptions> _options;
+
+        public UserController(IOptions<ServiceDisvoveryOptions> options)
+        {
+            _options = options;
+        }
+
         // GET api/User
         [HttpGet]
         public IEnumerable<string> Get()
         {
-            return new string[] { "User1", "User2" };
+            var userUri = new Uri(_options.Value.RegisterServerUrl);
+            var ipAdress = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+            var serviceId = $"{ipAdress.ToString()}_{userUri.Port}";
+            return new string[] { serviceId + "User1", serviceId+"User2" };
         }
 
         // GET api/User/5

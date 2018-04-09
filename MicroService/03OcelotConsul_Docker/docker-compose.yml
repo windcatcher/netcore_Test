@@ -12,7 +12,6 @@ services:
       - "8400:8400"
       - "8500:8500"
       - "53:53"
-      - '8600:8600'
       command: -server -ui-dir /ui -data-dir /tmp/consul -bootstrap-expect 1
 
     user_service:
@@ -27,8 +26,23 @@ services:
         dockerfile: ./ApiUserService/Dockerfile  
       ports:
         - '8801:80'  
-      # depends_on:
-      #   - consulserver   
+      depends_on:
+        - consulserver   
+
+    user_service2:
+      image: user_service
+      environment:
+       - ASPNETCORE_URLS=http://0.0.0.0:80
+       - ConsulUrl=http://consulserver:8500
+       - RegisterServerUrl=http://user_service2
+       - RegisterServiceName=user_service
+      build:
+        context: .
+        dockerfile: ./ApiUserService/Dockerfile  
+      ports:
+        - '8804:80'  
+      depends_on:
+        - consulserver 
 
     product_service:
       image: product_service
@@ -36,8 +50,11 @@ services:
       environment:
        - ASPNETCORE_URLS=http://0.0.0.0:80
        - ConsulUrl=http://consulserver:8500
-       - RegisterServerUrl=http://user_service
+       - RegisterServerUrl=http://product_service
        - RegisterServiceName=product_service
+       - DiscoveryServiceName=user_service
+       - DiscoverDnsUrl=http://consulserver:8600
+       
       build:
         context: .
         dockerfile: ./ApiProductService/Dockerfile  
@@ -46,6 +63,7 @@ services:
        
       depends_on:
         - consulserver
+        - user_service
 
     identity_service:
       image: identity_service
@@ -86,5 +104,6 @@ services:
         - ocelotgateway
         - user_service
         - product_service
+        - identity_service
 
       
