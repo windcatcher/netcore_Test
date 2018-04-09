@@ -6,6 +6,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -18,11 +19,13 @@ namespace SimpleClient
     {
         private HttpClient _httpClient;
         private string _gateWayUrl;
+        private IOptionsSnapshot<AppSetting> _appSetting;
 
-        public ProductController(HttpClient httpClient)
+        public ProductController(HttpClient httpClient, IOptionsSnapshot<AppSetting> appSetting)
         {
+            _appSetting = appSetting;
             _httpClient = httpClient;
-            _gateWayUrl = "http://testapi.com";
+            _gateWayUrl = appSetting.Value.GatewayUrl;
         }
 
         [HttpGet]
@@ -43,7 +46,7 @@ namespace SimpleClient
 
         private async Task<string> UseHttpClientPassword()
         {
-            var identityUrl = "http://localhost:8010/connect/token";
+            var identityUrl = $"{_appSetting.Value.IdentityServerUrl}/connect/token";
             var token = "";
             var result = "";
             var content = new FormUrlEncodedContent(new[]
@@ -72,7 +75,7 @@ namespace SimpleClient
 
         private async Task<string> UseHttpClientClientCredential()
         {
-            var identityUrl = "http://localhost:8010/connect/token";
+            var identityUrl = $"{_appSetting.Value.IdentityServerUrl}/connect/token";
             var token = "";
             var result = "";
             var content = new FormUrlEncodedContent(new[]
@@ -103,7 +106,7 @@ namespace SimpleClient
         {
             // var identityUrl = "http://localhost:8010/connect/token";
             //从元数据中发现客户端
-            var disco = await DiscoveryClient.GetAsync("http://localhost:8010");
+            var disco = await DiscoveryClient.GetAsync(_appSetting.Value.IdentityServerUrl);
             //请求令牌
             var tokenClient = new TokenClient(disco.TokenEndpoint, "client", "secret");
             var tokenResponse = await tokenClient.RequestClientCredentialsAsync("api1");
@@ -129,7 +132,7 @@ namespace SimpleClient
         {
             // var identityUrl = "http://localhost:8010/connect/token";
             //从元数据中发现客户端
-            var disco = await DiscoveryClient.GetAsync("http://localhost:8010");
+            var disco = await DiscoveryClient.GetAsync(_appSetting.Value.IdentityServerUrl);
             //请求令牌
             var tokenClient = new TokenClient(disco.TokenEndpoint, "ro.client", "secret");
             var tokenResponse = await tokenClient.RequestResourceOwnerPasswordAsync("alice", "alice", "api1");

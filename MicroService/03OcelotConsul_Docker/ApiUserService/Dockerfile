@@ -3,11 +3,11 @@ FROM microsoft/aspnetcore-build:2.0 AS build-env
 #设置应用在docker中的工作路径
 WORKDIR /app
 #拷贝所有csproj文件到/app下
-COPY *.csproj  ./
+COPY ./ApiUserService/*.csproj  ./
 #执行还原命令
 RUN dotnet restore
 #拷贝所有文件到/app下
-COPY . ./
+COPY ./ApiUserService/ ./
 #执行发布命令，编译的发布文件生成到/app/out目录下
 RUN dotnet publish -c Release -o out
 

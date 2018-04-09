@@ -19,19 +19,18 @@
       // "DownstreamPathTemplate": "/api/product",
       "DownstreamPathTemplate": "/api/{product}",
       "DownstreamScheme": "http",
-      "DownstreamHostAndPorts": [
-        {
-          "Host": "localhost",
-          "Port": 8802
-        }
-      ],
-
+      //"DownstreamHostAndPorts": [
+      //  {
+      //    "Host": "localhost",
+      //    "Port": 8802
+      //  }
+      //],
       "UpstreamPathTemplate": "/{product}", //上游请求地址为 http://testapi.com/user
       "UpstreamHttpMethod": [ "Get" ],
-      //"ServiceName": "product_service", //通过sonsul的服务名称去发现下游的webapi服务
-      //"LoadBalancer": "RoundRobin", //使用轮询负载策略
-      //"UseServiceDiscovery": true,
-
+      //consul
+      "ServiceName": "product_service", //通过sonsul的服务名称去发现下游的webapi服务
+      "LoadBalancer": "RoundRobin", //使用轮询负载策略
+      "UseServiceDiscovery": true,
       //授权
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "TestKey",
@@ -49,9 +48,10 @@
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "http://testapi.com", //使用switchhosts配置dns 127.0.0.1	testapi.com
-    //"BaseUrl": "http://localhost:5000",
+    //"BaseUrl": "http://testapi.com", //使用switchhosts配置dns 127.0.0.1	testapi.com
+    "BaseUrl": "http://localhost",
     "ServiceDiscoveryProvider": {
+      //"Host": "consulserver",
       "Host": "localhost",
       "Port": 8500
     }

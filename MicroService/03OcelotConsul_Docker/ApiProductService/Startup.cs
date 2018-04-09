@@ -30,78 +30,70 @@ namespace ApiProductService
         {
             services.AddMvc();
             services.AddOptions();
-            services.Configure<ServiceDisvoveryOptions>(Configuration.GetSection("ServiceDiscovery"));
+            services.Configure<ServiceDisvoveryOptions>(Configuration);
             services.AddSingleton<IConsulClient>(p => new ConsulClient(cfg =>
             {
-                var serviceConfiguration = p.GetRequiredService<IOptions<ServiceDisvoveryOptions>>().Value;
-
-                if (!string.IsNullOrEmpty(serviceConfiguration.Consul.HttpEndpoint))
-                {
-                    // if not configured, the client will use the default value "127.0.0.1:8500"
-                    cfg.Address = new Uri(serviceConfiguration.Consul.HttpEndpoint);
-                }
+                cfg.Address = new Uri(Configuration["ConsulUrl"]);
             }));
 
             //服务间发现dns的地址
             services.AddSingleton<IDnsQuery>(p =>
             {
-                var serviceConfiguration = p.GetRequiredService<IOptions<ServiceDisvoveryOptions>>().Value;
-                return new LookupClient(IPAddress.Parse(serviceConfiguration.Consul.DnsEndpoint.Address), serviceConfiguration.Consul.DnsEndpoint.Port);
+                var uri = new Uri(Configuration["DiscoverDnsUrl"]);
+                var ipdrs = Dns.GetHostAddresses(uri.Host).Where(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+                return new LookupClient(ipdrs, uri.Port);
             });
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime, IOptions<ServiceDisvoveryOptions> serviceOptions, IConsulClient consul)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime, IConsulClient consul)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
             app.UseMvc();
-            RegisterConsul(app, lifetime, serviceOptions, consul);
-           
+            RegisterConsul( lifetime, consul);
         }
 
-        private void RegisterConsul(IApplicationBuilder app, IApplicationLifetime lifetime, IOptions<ServiceDisvoveryOptions> serviceOptions, IConsulClient consul)
+        private void RegisterConsul( IApplicationLifetime lifetime, IConsulClient consul)
         {
 
-            //从配置获取ip端口信息，服务名称信息
-            var features = app.Properties["server.Features"] as FeatureCollection;
-            var addresses = features.Get<IServerAddressesFeature>().Addresses.Select(p => new Uri(p));
+            var consulUrl = Configuration["ConsulUrl"];
+            var userUrl = Configuration["RegisterServerUrl"];
 
-            foreach (var address in addresses)
+            //健康检查
+            var httpCheck = new AgentServiceCheck()
             {
-                var serviceId = $"{serviceOptions.Value.RegisterServiceName}_{address.Host}:{address.Port}";
-                //健康检查
-                var httpCheck = new AgentServiceCheck()
-                {
-                    DeregisterCriticalServiceAfter = TimeSpan.FromMinutes(1),//服务1分钟后失效，consul则移除该服务
-                    Interval = TimeSpan.FromSeconds(30),//每30秒进行一次健康检查
-                    HTTP = new Uri(address, "HealthCheck").OriginalString
-                };
+                DeregisterCriticalServiceAfter = TimeSpan.FromMinutes(1), //服务1分钟后失效，consul则移除该服务
+                Interval = TimeSpan.FromSeconds(30),//每30秒进行一次健康检查
+                HTTP = $"{userUrl}/HealthCheck"
+            };
+            var userUri = new Uri(userUrl);
+            var ipAdress = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+            var serviceName = Configuration["RegisterServiceName"];
+            var serviceId = $"{serviceName}_{ipAdress.ToString()}_{userUri.Port}";
+            var agentReg = new AgentServiceRegistration()
+            {
+                Checks = new AgentServiceCheck[] { httpCheck },
+                Address = userUri.Host,      //API服务地址
+                ID = serviceId,     //API服务id
+                Name = serviceName,      //服务名称
+                Port = userUri.Port                  //api端口
+            };
 
-                var registration = new AgentServiceRegistration()
+            //注册服务
+            lifetime.ApplicationStarted.Register(() =>
                 {
-                    Checks = new[] { httpCheck },
-                    Address = address.Host,//API服务地址
-                    ID = serviceId,//API服务id
-                    Name = serviceOptions.Value.RegisterServiceName,//服务名称
-                    Port = address.Port//api端口
-                };
-
-                //注册服务
-                lifetime.ApplicationStarted.Register(() =>
-                {
-                    consul.Agent.ServiceRegister(registration);
+                    consul.Agent.ServiceRegister(agentReg);
                 });
 
-                ////取消注册
-                //lifetime.ApplicationStopping.Register(() =>
-                //{
-                //    consul.Agent.ServiceDeregister(serviceId);
-                //});
+            ////取消注册
+            //lifetime.ApplicationStopping.Register(() =>
+            //{
+            //    consul.Agent.ServiceDeregister(serviceId);
+            //});
 
-            }
         }
     }
 

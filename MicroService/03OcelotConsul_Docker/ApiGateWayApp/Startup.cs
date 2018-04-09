@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Ocelot.DependencyInjection;
@@ -16,17 +17,22 @@ namespace ApiGateWayApp
 {
     public class Startup
     {
-        // This method gets called by the runtime. Use this method to add services to the container.
-        // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
+        public Startup(IConfiguration configuration)
+        {
+            Configuration = configuration;
+        }
+
+        public IConfiguration Configuration { get; }
         public void ConfigureServices(IServiceCollection services)
         {
             var authenticationProviderKey = "TestKey";
-
+            var identitySrvUrl = Configuration["IdentityServerUrl"];
+            Console.WriteLine($"identitySrvUrl={identitySrvUrl}");
             //identityServer 认证模式
             services.AddAuthentication()
                 .AddIdentityServerAuthentication(authenticationProviderKey, (options) =>
                 {
-                    options.Authority = "http://localhost:8010";
+                    options.Authority = identitySrvUrl;
                     options.ApiName = "api1";
                     options.SupportedTokens = SupportedTokens.Both;
                     options.RequireHttpsMetadata = false;//使用https

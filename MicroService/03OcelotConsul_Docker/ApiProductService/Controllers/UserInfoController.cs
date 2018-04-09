@@ -19,7 +19,7 @@ namespace ApiProductService.Controllers
     {
         private readonly IDnsQuery _dns;
         private readonly IOptions<ServiceDisvoveryOptions> _options;
-        private string _userApiUrl;
+
 
         public UserInfoController(IDnsQuery dns, IOptions<ServiceDisvoveryOptions> options)
         {
@@ -31,12 +31,10 @@ namespace ApiProductService.Controllers
         public async Task<string> Get()
         {
             var result = await _dns.ResolveServiceAsync("service.consul", _options.Value.DiscoveryServiceName);
-            var address = result.First().AddressList.FirstOrDefault();
-            var port = result.First().Port;
-
+            var address = result.First();
             using (var client = new HttpClient())
             {
-                _userApiUrl = $"http://{address}:{port}";
+                var _userApiUrl = $"http://{address.HostName}:{address.Port}";
                 var serviceResult = await client.GetStringAsync($"{_userApiUrl}/api/user");
                 return serviceResult;
             }
