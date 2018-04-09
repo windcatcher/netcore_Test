@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  dockcomposesimple:
+    image: dockcomposesimple
+    build:
+      context: .
+      dockerfile: dockcomposeSimple/Dockerfile
+    depends_on:
+      - testapi
+
+  testapi:
+    image: testapi
+    build:
+      context: .
+      dockerfile: TestApi/Dockerfile
+

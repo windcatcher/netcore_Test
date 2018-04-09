@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  dockcomposesimple:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - TestEnv=oooo;
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      #- TestApiClent=http://testapi:80
+      - TestApiClent=http://testapi:80
+      #- TestApiClent=http://${EXTERNAL_DNS_NAME_OR_IP}:9902
+    hostname: dockcomposesimple
+    ports:
+      - "9901:80"
+
+  testapi:
+    hostname: testapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+    ports:
+      - "9902:80"
+
