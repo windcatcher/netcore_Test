@@ -76,7 +76,8 @@ namespace ApiProductService
             var agentReg = new AgentServiceRegistration()
             {
                 Checks = new AgentServiceCheck[] { httpCheck },
-                Address = userUri.Host,      //API服务地址
+                //Address = userUri.Host,      //API服务地址
+                Address = ipAdress.ToString(),      //API服务地址
                 ID = serviceId,     //API服务id
                 Name = serviceName,      //服务名称
                 Port = userUri.Port                  //api端口

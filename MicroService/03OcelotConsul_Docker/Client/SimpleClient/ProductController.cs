@@ -32,7 +32,7 @@ namespace SimpleClient
         // GET: /product/ownerpassword
         public async Task<IActionResult> OwnerPassword()
         {
-            var result = await UseTokenClientPassword();
+            var result = await UseHttpClientPassword();
             return Ok(result);
         }
 
@@ -41,6 +41,14 @@ namespace SimpleClient
         public async Task<IActionResult> ClientCredential()
         {
             var result = await UseHttpClientClientCredential();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        // GET: /product/userinfo
+        public async Task<IActionResult> UserInfo()
+        {
+            var result = await UseHttpClientClientCredential("/product/userinfo");
             return Ok(result);
         }
 
@@ -73,7 +81,7 @@ namespace SimpleClient
         }
 
 
-        private async Task<string> UseHttpClientClientCredential()
+        private async Task<string> UseHttpClientClientCredential(string actionUrl= "/product")
         {
             var identityUrl = $"{_appSetting.Value.IdentityServerUrl}/connect/token";
             var token = "";
@@ -98,7 +106,7 @@ namespace SimpleClient
             using (var client = new HttpClient())
             {
                 _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-                result = await _httpClient.GetStringAsync($"{_gateWayUrl}/product");
+                result = await _httpClient.GetStringAsync($"{_gateWayUrl}{actionUrl}");
             }
             return result;
         }

@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
     consulserver:
       image: progrium/consul:latest
       environment:
@@ -83,7 +82,7 @@ services:
         context: .
         dockerfile: ./ApiGateWayApp/Dockerfile  
       ports:
-        - '80:80'  
+        - '9900:80'  
       depends_on:
         - consulserver
         - user_service
