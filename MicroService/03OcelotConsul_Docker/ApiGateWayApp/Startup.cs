@@ -28,6 +28,7 @@ namespace ApiGateWayApp
             var authenticationProviderKey = "TestKey";
             var identitySrvUrl = Configuration["IdentityServerUrl"];
             Console.WriteLine($"identitySrvUrl={identitySrvUrl}");
+
             //identityServer 认证模式
             services.AddAuthentication()
                 .AddIdentityServerAuthentication(authenticationProviderKey, (options) =>
@@ -38,6 +39,8 @@ namespace ApiGateWayApp
                     options.RequireHttpsMetadata = false;//使用https
                     options.ApiSecret = "secret";
                 });
+
+
             /* jwtbearer 认证模式
             services.AddAuthentication((options) =>
             {

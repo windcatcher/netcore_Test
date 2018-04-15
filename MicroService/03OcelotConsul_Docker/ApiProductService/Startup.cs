@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace ApiProductService
 {
@@ -28,6 +29,7 @@ namespace ApiProductService
 
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddMvc();
             services.AddOptions();
             services.Configure<ServiceDisvoveryOptions>(Configuration);
@@ -43,6 +45,18 @@ namespace ApiProductService
                 var ipdrs = Dns.GetHostAddresses(uri.Host).Where(ip => ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
                 return new LookupClient(ipdrs, uri.Port);
             });
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info
+                {
+                    Version = "v1",
+                    Title = "ProdcutService接口文档",
+                    Description = "RESTful API for ProdcutService接口文档"
+                    //TermsOfService = "None",
+                    //Contact = new Contact { Name = "lms", Email = "asdasdasd@outlook.com", Url = ""
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -52,6 +66,13 @@ namespace ApiProductService
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserService接口文档 API V1");
+            });
             app.UseMvc();
             RegisterConsul( lifetime, consul);
         }
