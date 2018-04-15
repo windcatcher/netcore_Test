@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace ApiUserService.Controllers
@@ -11,10 +12,13 @@ namespace ApiUserService.Controllers
     public class UserController : Controller
     {
         private readonly IOptions<ServiceDisvoveryOptions> _options;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IOptions<ServiceDisvoveryOptions> options)
+
+        public UserController(IOptions<ServiceDisvoveryOptions> options, ILogger<UserController> logger)
         {
             _options = options;
+            _logger = logger;
         }
 
         // GET api/User
@@ -24,6 +28,7 @@ namespace ApiUserService.Controllers
             var userUri = new Uri(_options.Value.RegisterServerUrl);
             var ipAdress = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
             var serviceId = $"{ipAdress.ToString()}_{userUri.Port}";
+            _logger.LogInformation($"serviceId:{serviceId}");
             return new string[] { serviceId + "User1", serviceId+"User2" };
         }
 

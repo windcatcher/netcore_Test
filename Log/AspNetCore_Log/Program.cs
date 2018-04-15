@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace ApiUserService
+namespace AspNetCore_Log
 {
     public class Program
     {
@@ -19,14 +19,13 @@ namespace ApiUserService
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-            .UseStartup<Startup>()
-            .ConfigureLogging((hostContext, builder) =>
-            {
-                builder.AddConfiguration(hostContext.Configuration.GetSection("Logging"));
-                builder.AddConsole();
-                builder.AddDebug();
-
-            })
-            .Build();
+             //.ConfigureLogging((hostContext, config) =>
+             //{
+             //    config.AddConfiguration(hostContext.Configuration.GetSection("Logging"));
+             //    config.AddConsole();
+             //    config.AddDebug();
+             //})
+                .UseStartup<Startup>()
+                .Build();
     }
 }
