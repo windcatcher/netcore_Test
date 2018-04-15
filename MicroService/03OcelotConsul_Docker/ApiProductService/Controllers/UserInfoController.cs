@@ -8,6 +8,7 @@ using Consul;
 using DnsClient;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace ApiProductService.Controllers
@@ -21,12 +22,15 @@ namespace ApiProductService.Controllers
         private readonly IDnsQuery _dns;
         private readonly IOptions<ServiceDisvoveryOptions> _options;
         private IConsulClient _consulClient;
+        private readonly ILogger<UserInfoController> _logger;
 
-        public UserInfoController(IDnsQuery dns, IOptions<ServiceDisvoveryOptions> options, IConsulClient consulClient)
+        public UserInfoController(IDnsQuery dns, IOptions<ServiceDisvoveryOptions> options
+            , IConsulClient consulClient, ILogger<UserInfoController> logger)
         {
             _dns = dns ?? throw new ArgumentNullException(nameof(dns));
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _consulClient = consulClient ?? throw new ArgumentNullException(nameof(consulClient));
+            _logger = logger;
         }
         [HttpGet("")]
         [HttpHead("")]
@@ -55,6 +59,7 @@ namespace ApiProductService.Controllers
             using (var client = new HttpClient())
             {
                 var _userApiUrl = $"http://{address.ServiceAddress}:{address.ServicePort}";
+                _logger.LogInformation($"_userApiUrl:{_userApiUrl}");
                 var serviceResult = await client.GetStringAsync($"{_userApiUrl}/api/user");
                 return serviceResult;
             }

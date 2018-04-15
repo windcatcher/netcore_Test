@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiProductService.config;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace ApiProductService.Controllers
@@ -12,10 +13,12 @@ namespace ApiProductService.Controllers
     public class ProductController : Controller
     {
         private readonly IOptions<ServiceDisvoveryOptions> _options;
+        private readonly ILogger<ProductController> _logger;
 
-        public ProductController(IOptions<ServiceDisvoveryOptions> options)
+        public ProductController(IOptions<ServiceDisvoveryOptions> options, ILogger<ProductController> logger)
         {
             _options = options;
+            _logger = logger;
         }
 
         // GET api/Product
@@ -25,6 +28,7 @@ namespace ApiProductService.Controllers
             var userUri = new Uri(_options.Value.RegisterServerUrl);
             var ipAdress = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
             var serviceId = $"{ipAdress.ToString()}_{userUri.Port}";
+            _logger.LogInformation($"serviceId:{serviceId}");
             return new string[] { serviceId + "Product1", serviceId + "Product2" };
         }
 
