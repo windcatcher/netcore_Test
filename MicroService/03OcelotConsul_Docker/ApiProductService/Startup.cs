@@ -60,7 +60,8 @@ namespace ApiProductService
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IApplicationLifetime lifetime, IConsulClient consul)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env
+            , IApplicationLifetime lifetime, IConsulClient consul,ILoggerFactory loggerFac)
         {
             if (env.IsDevelopment())
             {
@@ -74,12 +75,13 @@ namespace ApiProductService
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "UserService接口文档 API V1");
             });
             app.UseMvc();
-            RegisterConsul( lifetime, consul);
+            var logger = loggerFac.CreateLogger("App");
+            RegisterConsul(lifetime, consul,logger);
         }
 
-        private void RegisterConsul( IApplicationLifetime lifetime, IConsulClient consul)
+        private void RegisterConsul( IApplicationLifetime lifetime, IConsulClient consul, ILogger logger)
         {
-
+            
             var consulUrl = Configuration["ConsulUrl"];
             var userUrl = Configuration["RegisterServerUrl"];
 
@@ -94,6 +96,7 @@ namespace ApiProductService
             var ipAdress = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
             var serviceName = Configuration["RegisterServiceName"];
             var serviceId = $"{serviceName}_{ipAdress.ToString()}_{userUri.Port}";
+            logger.LogInformation($"serviceId:{serviceId}");
             var agentReg = new AgentServiceRegistration()
             {
                 Checks = new AgentServiceCheck[] { httpCheck },
