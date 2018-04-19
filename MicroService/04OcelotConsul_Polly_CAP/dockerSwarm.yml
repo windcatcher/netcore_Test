@@ -1,0 +1,112 @@
+#version: "3"  #error endpoint_mode Additional property endpoint_mode is not allowed
+version: "3.2"
+services:
+  consulserver:
+    image: progrium/consul:latest
+    environment:
+      SERVICE_TAGS: consul servers
+    networks:
+      - overlay
+    #hostname: consulserver
+    ports:
+      - "8300:8300"
+      - "8400:8400"
+      - "8500:8500"
+      - "53:53"
+    command: -server -ui-dir /ui -data-dir /tmp/consul -bootstrap-expect 1
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  user_service:
+    image: windcatcher/user_service:v1
+    networks:
+      - overlay    
+    # ports:    #error port published with ingress mode can't be used with dnsrr mode
+    #   - 80:80
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConsulUrl=http://consulserver:8500
+      - RegisterServerUrl=http://user_service
+      - RegisterServiceName=user_service
+    deploy:
+      mode: replicated
+      replicas: 3
+      endpoint_mode: dnsrr
+
+  product_service:
+    image: windcatcher/product_service:v1
+    #hostname: product_service
+    networks:
+      - overlay 
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:80
+      - ConsulUrl=http://consulserver:8500
+      - RegisterServerUrl=http://product_service
+      - RegisterServiceName=product_service
+      - DiscoveryServiceName=user_service
+      - DiscoverDnsUrl=http://consulserver:8600
+       
+    # ports:
+    #   - '8802:80' 
+      
+    depends_on:
+      - consulserver
+      - user_service
+    deploy:
+      mode: replicated
+      replicas: 3
+      endpoint_mode: dnsrr
+
+  identity_service:
+    image: windcatcher/identity_service:v1
+    #hostname: identity_service
+    networks:
+      - overlay     
+    ports:
+      - '8010:80' 
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+        
+  ocelotgateway:
+    image: windcatcher/ocelotgateway:v1
+    networks:
+      - overlay     
+    environment:
+      - IdentityServerUrl=http://identity_service
+    
+    ports:
+      - '9900:80'  
+    depends_on:
+      - consulserver
+      - user_service
+      - product_service
+      - identity_service
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+
+  simpleclient:
+    image: windcatcher/simpleclient:v1
+    networks:
+      - overlay     
+    environment:
+      - IdentityServerUrl=http://identity_service
+      - GatewayUrl=http://ocelotgateway
+    ports:
+      - '8821:80'   
+    depends_on:
+      - ocelotgateway
+      - user_service
+      - product_service
+      - identity_service
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+networks:
+  overlay:     
+
+
