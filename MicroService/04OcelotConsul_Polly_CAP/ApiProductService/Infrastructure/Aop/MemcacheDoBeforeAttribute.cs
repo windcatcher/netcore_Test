@@ -35,6 +35,14 @@ namespace ApiProductService.Infrastructure.Aop
                 logger.LogInformation($"cacheKey:{cacheKey}");
 
                 var returnType = context.ServiceMethod.ReturnType;
+                bool isTask = false;
+
+                if (returnType.GetProperty("Result") != null)
+                {
+                    isTask = true;
+                    returnType = returnType.GetProperty("Result").PropertyType;
+                }
+
                 //如果Memcached 连接不上呢
                 if (!CachingProvider.IsConnect)
                 {
@@ -42,22 +50,31 @@ namespace ApiProductService.Infrastructure.Aop
                     await next(context);
                     return;
                 }
-
+              
                 var cacheValue = CachingProvider.GetStringAsync(cacheKey).Result;
                 //返回值
                 if (string.IsNullOrEmpty(cacheValue))
                 {
                     //回Service
                     await next(context);
-                    var values = JsonConvert.SerializeObject(context.ReturnValue);
+                    var vulue = context.ReturnValue;
+                    if (isTask)
+                        vulue = context.ReturnValue.GetType().GetProperty("Result").GetValue(context.ReturnValue, null);
+
+                    var values = JsonConvert.SerializeObject(vulue);
                     //先放到Memcached中一份
                     await CachingProvider.SetStringAsync(cacheKey, values, TimeSpan.FromSeconds(expiry));
                     cacheValue = values;
                 }
                 Console.WriteLine("Before service call");
                 var value = JsonConvert.DeserializeObject(cacheValue, returnType);
-
-                context.ReturnValue = value;
+                if (isTask)
+                {
+                    context.ReturnValue = value;
+                    await context.Complete();
+                }
+                else
+                    context.ReturnValue = value;
             }
             catch (Exception)
             {
