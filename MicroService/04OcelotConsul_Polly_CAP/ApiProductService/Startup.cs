@@ -4,8 +4,12 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using ApiProductService.config;
+using ApiProductService.Infrastructure.Aop;
 using ApiProductService.Infrastructure.Repositories;
 using ApiProductService.Infrastructure.Services;
+using AspectCore.Configuration;
+using AspectCore.Extensions.DependencyInjection;
+using AspectCore.Injector;
 using Consul;
 using DnsClient;
 using DotNetCore.CAP.Models;
@@ -18,6 +22,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ApiProductService
@@ -31,19 +36,20 @@ namespace ApiProductService
 
         public IConfiguration Configuration { get; }
 
-        public void ConfigureServices(IServiceCollection services)
+        public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ProductContext>(options => { options.UseMySql(Configuration["ConnectionString"]); });
-            services.AddTransient<IProductRepository, ProductRepository>();
-            services.AddTransient<IColorRepository, ColorRepository>();
-            services.AddTransient<ISkuRepository, SkuRepository>();
-            services.AddTransient<ISkuSubscribService, SkuService>();
+            services.AddMvc();
+            services.AddOptions();
+            services.Configure<ServiceDisvoveryOptions>(Configuration);
+
+
             services.AddCap(x =>
             {
                 x.UseEntityFramework<ProductContext>();
                 x.UseDashboard();
                 x.UseRabbitMQ(Configuration["ConStrRabbitMq"]);
-                x.FailedRetryCount = 2;
+                x.FailedRetryCount = 4;//FailedRetryCount 设置建议大于3，因为三次以内不走重试处理器，处理不到FailedCallback
                 x.FailedCallback = new Action<MessageType, string, string>(FailCallbackFoo);
 
                 var consulUrl = Configuration["ConsulUrl"];
@@ -60,18 +66,31 @@ namespace ApiProductService
                     d.DiscoveryServerHostName = consulUri.Host;
                     d.DiscoveryServerPort = consulUri.Port;
                     d.CurrentNodeHostName = ipAdress.ToString();
+                    //d.CurrentNodeHostName = userUri.DnsSafeHost;
                     d.CurrentNodePort = userUri.Port;
                     d.NodeId = 1;
                     d.NodeName = serviceName;
-                    
+
                 });
 
             });
-            services.AddMvc();
-            services.AddOptions();
-            services.Configure<ServiceDisvoveryOptions>(Configuration);
 
-
+            services.AddSingleton<IConnectionMultiplexer, ConnectionMultiplexer>(sp =>
+             {
+                 var redisCon = Configuration["RedisCon"];
+                 return ConnectionMultiplexer.Connect(redisCon);
+             });
+            services.AddTransient<ICachingProvider, RedisCachingProvider>();
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddTransient<IColorRepository, ColorRepository>();
+            services.AddTransient<ISkuRepository, SkuRepository>();
+            services.AddTransient<ISkuSubscribService, SkuService>();
+            services.AddDynamicProxy(config =>
+            {
+                config.Interceptors.AddTyped<MemcacheDoBeforeAttribute>(Predicates.ForMethod("*Repository", "get*"));
+                config.Interceptors.AddTyped<MemcacheDoAfterAttribute>(Predicates.ForMethod("*Repository", "add*"));
+                config.Interceptors.AddTyped<MemcacheDoAfterAttribute>(Predicates.ForMethod("*Repository", "update*"));
+            });
             //services.AddSingleton<IConsulClient>(p => new ConsulClient(cfg =>
             //{
             //    cfg.Address = new Uri(Configuration["ConsulUrl"]);
@@ -97,6 +116,9 @@ namespace ApiProductService
                 });
             });
 
+            //将IServiceCollection的服务添加到ServiceContainer容器中
+            var container = services.ToServiceContainer();
+            return container.Build();
         }
 
         private void FailCallbackFoo(MessageType msgType, string name, string content)

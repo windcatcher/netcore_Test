@@ -14,7 +14,14 @@ namespace ApiProductService
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            BuildWebHost(args)
+                 .MigrateDbContext<ProductContext>((context, services) =>
+                 {
+                     new ProductContextSeed()
+                     .SeedAsync(context)
+                     .Wait();
+                 })
+                .Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

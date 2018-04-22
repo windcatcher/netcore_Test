@@ -31,6 +31,7 @@ namespace SimpleClient
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
         }
     }

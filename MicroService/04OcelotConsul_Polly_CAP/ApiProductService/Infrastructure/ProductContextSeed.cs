@@ -35,7 +35,7 @@ namespace ApiProductService
                     retry.Execute(() =>
                     {
                         context.Database.Migrate();
-                        seeder(context, services);
+                        //seeder(context, services);
                     });
 
                     logger.LogInformation($"Migrated database associated with context {typeof(TContext).Name}");

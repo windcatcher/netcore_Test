@@ -28,14 +28,25 @@ namespace ApiOderService
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-          //  var logger = loggerFac.CreateLogger("app.StartupService");
-            services.AddDbContext<OrderContext>(options => { options.UseMySql(Configuration["ConnectionString"]); });
+            //  var logger = loggerFac.CreateLogger("app.StartupService");
+            services.AddDbContext<OrderContext>(options =>
+            {
+                options.UseMySql(Configuration["ConnectionString"],
+                    mySqlOptionsAction: sqlAction =>
+                    {
+                        sqlAction.EnableRetryOnFailure(
+                            maxRetryCount: 5, //重试5次
+                            maxRetryDelay: TimeSpan.FromSeconds(30), //每个30s重试一次
+                            errorNumbersToAdd: null
+                                );
+                    });
+            });
             services.AddCap(x =>
             {
                 x.UseEntityFramework<OrderContext>();
                 x.UseDashboard();
                 x.UseRabbitMQ(Configuration["ConStrRabbitMq"]);
-                x.FailedRetryCount = 2;
+                x.FailedRetryCount = 4;//FailedRetryCount 设置建议大于3，因为三次以内不走重试处理器，处理不到FailedCallback
                 x.FailedCallback = new Action<MessageType, string, string>(FailCallbackFoo);
                 var consulUrl = Configuration["ConsulUrl"];
                 var userUrl = Configuration["RegisterServerUrl"];
@@ -87,7 +98,7 @@ namespace ApiOderService
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseMvc();
+            app.UseMvcWithDefaultRoute();
             app.UseCap();
             app.UseSwagger();
 

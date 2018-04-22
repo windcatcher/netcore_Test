@@ -22,6 +22,7 @@ namespace ApiProductService.Infrastructure.Services
 
             int skuId = (int)orderInfo.SkuId.Value;
             int oderItemcount = (int)orderInfo.Amount.Value;
+
             //throw new NullReferenceException();
             Sku sku = skuRep.getSkuByKey(skuId);
             sku.StockInventory -= oderItemcount;

@@ -32,6 +32,13 @@ services:
     - "53:53"
     command: -server -ui-dir /ui -data-dir /tmp/consul -bootstrap-expect 1
 
+  redis:
+      image: redis:alpine
+      container_name: redis-nosql 
+      restart: always
+      ports:
+        - '6379:6379'  
+
   # user_service:
   #   image: user_service
   #   environment:

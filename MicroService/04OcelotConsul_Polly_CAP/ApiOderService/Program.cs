@@ -14,7 +14,14 @@ namespace ApiOderService
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            BuildWebHost(args)
+               .MigrateDbContext<OrderContext>((context, services) =>
+               {
+                   new OrderContextSeed()
+                   .SeedAsync(context)
+                   .Wait();
+               })
+                .Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

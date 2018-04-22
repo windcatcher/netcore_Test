@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiProductService.Infrastructure.Aop;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -71,6 +72,7 @@ namespace ApiProductService.Infrastructure.Repositories
         /**
          * 库存大于>0
          */
+        [MemcacheDoBefore]
         IEnumerable<Sku> getStock(int productId);
     }
 }

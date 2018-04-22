@@ -34,7 +34,7 @@ namespace ApiGateWayApp
                 .AddIdentityServerAuthentication(authenticationProviderKey, (options) =>
                 {
                     options.Authority = identitySrvUrl;
-                    options.ApiName = "api1";
+                    options.ApiName = "product";
                     options.SupportedTokens = SupportedTokens.Both;
                     options.RequireHttpsMetadata = false;//使用https
                     options.ApiSecret = "secret";

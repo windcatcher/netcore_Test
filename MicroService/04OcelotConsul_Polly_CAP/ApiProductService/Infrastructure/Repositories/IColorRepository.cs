@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApiProductService.Infrastructure.Aop;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -18,6 +19,7 @@ namespace ApiProductService.Infrastructure.Repositories
         /**
          * 根据主键查询
          */
+
         Color getColorByKey(int id);
 
         /**
@@ -62,6 +64,7 @@ namespace ApiProductService.Infrastructure.Repositories
          *            查询条件
          * @return
          */
+        [MemcacheDoBefore]
         IEnumerable<Color> getColorList(Expression<Func<Color, bool>> colorQuery);
     }
 }

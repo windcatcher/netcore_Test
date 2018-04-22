@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="0.3.1" />
     <PackageReference Include="consul" Version="0.7.2.4" />
     <PackageReference Include="DnsClient" Version="1.0.7" />
     <PackageReference Include="DotNetCore.CAP" Version="2.1.4" />
@@ -25,6 +26,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.2" />
     <PackageReference Include="Polly" Version="5.9.0" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="2.0.1" />
+    <PackageReference Include="StackExchange.Redis.StrongName.Core" Version="1.1.605" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="2.4.0" />
   </ItemGroup>
 

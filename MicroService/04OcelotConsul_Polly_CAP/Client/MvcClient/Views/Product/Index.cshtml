@@ -1,0 +1,16 @@
+﻿@{
+    ViewData["Title"] = "Product";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+<div class="row">
+    <div class="col-md-3">
+        <ul class="nav navbar-nav">
+            <li><a asp-area="" asp-controller="Product" asp-action="GetColors">Colors</a></li>
+            <li><a asp-area="" asp-controller="Product" asp-action="GetOrders">Orders</a></li>
+            <li><a asp-area="" asp-controller="Product" asp-action="GetSkus">Skus</a></li>
+            <li><a asp-area="" asp-controller="Product" asp-action="GetProducts">Products</a></li>
+        </ul>
+    </div>
+</div>
