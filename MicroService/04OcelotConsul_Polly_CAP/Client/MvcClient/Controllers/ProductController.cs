@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using MvcClient.Options;
 using MvcClient.ViewModel;
 using Newtonsoft.Json;
 using Resilience.Http;
@@ -19,12 +21,13 @@ namespace MvcClient.Controllers
     {
         private IHttpClient _httpClient;
         private ILogger<ProductController> _logger;
-
+        private readonly IOptions<AppSettinOptions> _options;
         public ProductController(IHttpClient httpClient
-            , ILogger<ProductController> logger)
+            , ILogger<ProductController> logger, IOptions<AppSettinOptions> options)
         {
             _httpClient = httpClient;
             _logger = logger;
+            _options = options;
         }
 
         public IActionResult Index()
@@ -34,7 +37,8 @@ namespace MvcClient.Controllers
 
         public async Task<IActionResult> GetColors()
         {
-            var urlProduct = "http://localhost:8802/api/colors";
+            //var urlProduct = $"{_options.Value.ProductUrl}/api/colors";
+            var urlProduct = $"http://product_service/api/colors";
             var dataString = await _httpClient.GetStringAsync(urlProduct);
             return Json(dataString);
         }
@@ -43,7 +47,7 @@ namespace MvcClient.Controllers
         public async Task<IActionResult> GetOrders()
         {
             //var urlProduct = "http://localhost:8803/api/orders";
-            var urlProduct = "http://localhost:5000/api/orders";
+            var urlProduct = $"{_options.Value.OrderUrl}/api/orders";
             var dataString = await _httpClient.GetStringAsync(urlProduct);
             return Json(dataString);
         }
@@ -52,7 +56,7 @@ namespace MvcClient.Controllers
         public async Task<IActionResult> GetSkus()
         {
             //
-            var urlProduct = "http://localhost:8802/api/skus";
+            var urlProduct = $"{_options.Value.ProductUrl}/api/skus";
             var dataString = await _httpClient.GetStringAsync(urlProduct);
             var json = JsonConvert.DeserializeObject<List<SkuViewModel>>(dataString);
             return Json(json);

@@ -1,0 +1,124 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql
+    container_name: mysql-db 
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci 
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_USER: test   
+      MYSQL_PASSWORD: test
+    volumes:
+      - "/home/docker/mysql/data:/var/lib/mysql"  
+      - "/home/docker/mysql/conf/my.cnf:/etc/my.cnf"      
+    ports:
+      - '6606:3306'  
+    
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+  
+  consulserver:
+    image: progrium/consul:latest
+    environment:
+      SERVICE_TAGS: consul servers
+    hostname: consulserver
+    ports:
+    - "8300:8300"
+    - "8400:8400"
+    - "8500:8500"
+    - "53:53"
+    command: -server -ui-dir /ui -data-dir /tmp/consul -bootstrap-expect 1
+
+  redis:
+      image: redis:alpine
+      container_name: redis-nosql 
+      restart: always
+      ports:
+        - '6379:6379'  
+
+  # user_service:
+  #   image: user_service
+  #   environment:
+  #     - ASPNETCORE_URLS=http://0.0.0.0:80
+  #     - ConsulUrl=http://consulserver:8500
+  #     - RegisterServerUrl=http://user_service
+  #     - RegisterServiceName=user_service
+  #   build:
+  #     context: .
+  #     dockerfile: ./ApiUserService/Dockerfile  
+  #   ports:
+  #     - '8801:80'  
+  #   depends_on:
+  #     - consulserver   
+
+
+
+  # product_service:
+  #   image: product_service
+  #   hostname: product_service
+  #   environment:
+  #     - ASPNETCORE_URLS=http://0.0.0.0:80
+  #     - ConsulUrl=http://consulserver:8500
+  #     - RegisterServerUrl=http://product_service
+  #     - RegisterServiceName=product_service
+  #     - DiscoveryServiceName=user_service
+  #     - DiscoverDnsUrl=http://consulserver:8600
+       
+  #   build:
+  #     context: .
+  #     dockerfile: ./ApiProductService/Dockerfile  
+  #   ports:
+  #     - '8802:80' 
+       
+  #   depends_on:
+  #     - consulserver
+  #     - user_service
+
+  # identity_service:
+  #   image: identity_service
+  #   hostname: identity_service
+  #   build:
+  #     context: .
+  #     dockerfile: ./IdentityServer/Dockerfile  
+  #   ports:
+  #     - '8010:80' 
+
+  # ocelotgateway:
+  #   image: ocelotgateway
+  #   environment:
+  #     - IdentityServerUrl=http://identity_service
+      
+  #   build:
+  #     context: .
+  #     dockerfile: ./ApiGateWayApp/Dockerfile  
+  #   ports:
+  #     - '9900:80'  
+  #   depends_on:
+  #     - consulserver
+  #     - user_service
+  #     - product_service
+  #     - identity_service
+
+  # simpleclient:
+  #   image: simpleclient
+  #   build:
+  #     context: .
+  #     dockerfile: ./Client/SimpleClient/Dockerfile  
+  #   environment:
+  #     - IdentityServerUrl=http://identity_service
+  #     - GatewayUrl=http://ocelotgateway
+  #   ports:
+  #     - '8821:80'   
+  #   depends_on:
+  #     - ocelotgateway
+  #     - user_service
+  #     - product_service
+  #     - identity_service
+
+      

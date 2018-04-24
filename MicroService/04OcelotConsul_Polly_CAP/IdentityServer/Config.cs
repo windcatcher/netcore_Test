@@ -53,10 +53,14 @@ namespace IdentityServer
                       //用于认证的密码
                      ClientSecrets={new Secret("secret".Sha256())},
                      RequireConsent=true, //默认为ture
-                     //登录后重定向到客户端
-                     RedirectUris={"http://localhost:8822/signin-oidc" },
+                     ////登录后重定向到客户端
+                     //RedirectUris={"http://localhost:8822/signin-oidc" },
+                     ////注销后重定向到客户端
+                     //PostLogoutRedirectUris={"http://localhost:8822/signout-callback-oidc" },
+                      //登录后重定向到客户端
+                     RedirectUris={"http://mvcclient/signin-oidc" },
                      //注销后重定向到客户端
-                     PostLogoutRedirectUris={"http://localhost:8822/signout-callback-oidc" },
+                     PostLogoutRedirectUris={"http://mvcclient/signout-callback-oidc" },
                      AllowedScopes=new List<string>{
                          IdentityServerConstants.StandardScopes.OpenId,
                          IdentityServerConstants.StandardScopes.Profile,

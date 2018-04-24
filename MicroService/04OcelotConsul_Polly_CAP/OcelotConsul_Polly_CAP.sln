@@ -20,7 +20,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{6FB07E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B7D520E2-E86B-404C-8673-D3F1617B93B3}"
 	ProjectSection(SolutionItems) = preProject
+		docker-compose - 副本.yml = docker-compose - 副本.yml
 		docker-compose.yml = docker-compose.yml
+		dockerSwarm.yml = dockerSwarm.yml
+		envconfig.yml = envconfig.yml
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SimpleClient", "Client\SimpleClient\SimpleClient.csproj", "{B3512D4F-C98E-4012-BE22-4795EA25D828}"
@@ -36,6 +39,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcClient", "Client\MvcClient\MvcClient.csproj", "{7EA39DCD-C8B0-42F1-B173-4DC285D018F5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{76BC7885-AD90-4305-91BE-5709151464D1}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{CD103187-F69B-48DA-A7B5-52833F6F586E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +80,10 @@ Global
 		{76BC7885-AD90-4305-91BE-5709151464D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76BC7885-AD90-4305-91BE-5709151464D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76BC7885-AD90-4305-91BE-5709151464D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD103187-F69B-48DA-A7B5-52833F6F586E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD103187-F69B-48DA-A7B5-52833F6F586E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD103187-F69B-48DA-A7B5-52833F6F586E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD103187-F69B-48DA-A7B5-52833F6F586E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

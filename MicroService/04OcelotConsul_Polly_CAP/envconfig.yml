@@ -1,0 +1,69 @@
+#version: "3"  #error endpoint_mode Additional property endpoint_mode is not allowed
+version: "3.2"
+services:
+  consulserver:
+    image: progrium/consul:latest
+    environment:
+      SERVICE_TAGS: consul servers
+    networks:
+      - overlay
+    #hostname: consulserver
+    ports:
+      - "8300:8300"
+      - "8400:8400"
+      - "8500:8500"
+      - "53:53"
+    command: -server -ui-dir /ui -data-dir /tmp/consul -bootstrap-expect 1
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  mysql:
+    image: mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci 
+    networks:
+      - overlay    
+    environment:
+      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_USER: test   
+      MYSQL_PASSWORD: test
+    volumes:
+      - mysql-data:/var/lib/mysql 
+      - mysql-conf:/etc/my.cnf  
+    ports:
+      - '6606:3306'  
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+        
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    networks:
+      - overlay    
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  redis:
+    image: redis:alpine
+    networks:
+      - overlay
+    ports:
+        - '6379:6379' 
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+
+
+networks:
+  overlay:   
+
+volumes:  
+   mysql-data:
+   mysql-conf:
+
+

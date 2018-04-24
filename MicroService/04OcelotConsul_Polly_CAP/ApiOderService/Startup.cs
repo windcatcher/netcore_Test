@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using ApiOderService.Infrastructure.Filters;
 using Consul;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using MySql.Data.MySqlClient;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace ApiOderService
@@ -29,9 +31,11 @@ namespace ApiOderService
         public void ConfigureServices(IServiceCollection services)
         {
             //  var logger = loggerFac.CreateLogger("app.StartupService");
+            var sqlCon = Configuration["ConnectionString"];
+            // WaitForDBInit(sqlCon);
             services.AddDbContext<OrderContext>(options =>
             {
-                options.UseMySql(Configuration["ConnectionString"],
+                options.UseMySql(sqlCon,
                     mySqlOptionsAction: sqlAction =>
                     {
                         sqlAction.EnableRetryOnFailure(
@@ -41,6 +45,9 @@ namespace ApiOderService
                                 );
                     });
             });
+
+            var userUri = new Uri(Configuration["RegisterServerUrl"]);
+            var ipAdress = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
             services.AddCap(x =>
             {
                 x.UseEntityFramework<OrderContext>();
@@ -48,11 +55,7 @@ namespace ApiOderService
                 x.UseRabbitMQ(Configuration["ConStrRabbitMq"]);
                 x.FailedRetryCount = 4;//FailedRetryCount 设置建议大于3，因为三次以内不走重试处理器，处理不到FailedCallback
                 x.FailedCallback = new Action<MessageType, string, string>(FailCallbackFoo);
-                var consulUrl = Configuration["ConsulUrl"];
-                var userUrl = Configuration["RegisterServerUrl"];
-                var consulUri = new Uri(consulUrl);
-                var userUri = new Uri(userUrl);
-                var ipAdress = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+                var consulUri = new Uri(Configuration["ConsulUrl"]);
                 var serviceName = Configuration["RegisterServiceName"];
                 var serviceId = $"{serviceName}_{ipAdress.ToString()}_{userUri.Port}";
                 // logger.LogInformation($"serviceId:{serviceId}");
@@ -110,6 +113,27 @@ namespace ApiOderService
 
         }
 
+        private static void WaitForDBInit(string connectionString)
+        {
+            var connection = new MySqlConnection(connectionString);
+            int retries = 1;
+            while (retries < 7)
+            {
+                try
+                {
+                    Console.WriteLine("Connecting to db. Trial: {0}", retries);
+                    connection.Open();
+                    connection.Close();
+                    break;
+                }
+                catch (MySqlException)
+                {
+                    Thread.Sleep((int)Math.Pow(2, retries) * 1000);
+                    retries++;
+                }
+            }
+        }
+
         private void RegisterConsul(IApplicationLifetime lifetime, ILogger logger)
         {
             var client = new ConsulClient();
@@ -126,7 +150,8 @@ namespace ApiOderService
                 HTTP = $"{userUrl}/HealthCheck"
             };
             var userUri = new Uri(userUrl);
-            var ipAdress = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault();
+            var ipAdressList = System.Net.Dns.GetHostAddresses(userUri.Host).Where(p => p.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork);
+            var ipAdress = ipAdressList.FirstOrDefault();
             var serviceName = Configuration["RegisterServiceName"];
             var serviceId = $"{serviceName}_{ipAdress.ToString()}_{userUri.Port}";
             logger.LogInformation($"serviceId:{serviceId}");

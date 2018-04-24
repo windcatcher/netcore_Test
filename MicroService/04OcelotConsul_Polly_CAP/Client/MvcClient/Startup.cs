@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MvcClient.Infrastructure;
+using MvcClient.Options;
 using Resilience.Http;
 
 namespace MvcClient
@@ -29,6 +30,7 @@ namespace MvcClient
         {
             var indentyUrl = Configuration.GetValue<string>("IdentityServerUrl");
             var callBackUrl = Configuration.GetValue<string>("CallBackUrl");
+            services.Configure<AppSettinOptions>(Configuration);
             services.AddMvc();
             // Add application services.
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

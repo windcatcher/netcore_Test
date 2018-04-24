@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using IdentityServer4.AccessTokenValidation;
@@ -65,6 +66,7 @@ namespace ApiGateWayApp
             {
                 app.UseDeveloperExceptionPage();
             }
+           
             app.UseOcelot().Wait();
             //app.Run(async (context) =>
             //{

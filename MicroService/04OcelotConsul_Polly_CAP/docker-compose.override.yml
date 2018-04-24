@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mysql_data:
+  rabbitmq:
+  consulserver:
+  redis:
+  order_service:
+  product_service:
+  identity_service:
+  ocelotgateway:
+  # simpleclient:
+ 
+  mvcclient:
+
