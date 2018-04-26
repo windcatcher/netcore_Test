@@ -137,8 +137,8 @@ services:
       dockerfile: Client/MvcClient/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - IdentityServerUrl=http://identity_service
-      - CallBackUrl=http://mvcclient
+      - IdentityServerUrl=http://10.0.75.1:8010
+      - CallBackUrl=http://localhost:8822
       - ProductUrl=http://ocelotgateway/product
       - OrderUrl=http://ocelotgateway/order
     
