@@ -48,16 +48,34 @@ namespace Api
                   options.ApiName = "api1";
               });
 
+
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("CorsPolicy",
+            //        builder => builder.AllowAnyOrigin()
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader()
+            //        .AllowCredentials());
+            //});
+
             services.AddCors(options =>
             {
-                // this defines a CORS policy called "default"
-                options.AddPolicy("default", policy =>
-                {
-                    policy.WithOrigins("http://localhost:5003")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.WithOrigins("http://localhost:5003", "http://localhost:8082")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
             });
+
+            //services.AddCors(options =>
+            //{
+            //    // this defines a CORS policy called "default"
+            //    options.AddPolicy("CorsPolicy", policy =>
+            //    {
+            //        policy.WithOrigins("http://localhost:5003")
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod();
+            //    });
+            //});
 
             #region use Microsoft.AspNetCore.Authentication.JwtBearer
 
@@ -86,7 +104,7 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("default");
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.Use((context, next) =>
             {
