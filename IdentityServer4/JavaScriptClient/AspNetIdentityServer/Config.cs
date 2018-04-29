@@ -78,6 +78,44 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         "api1"
                     }
+                },
+                 // vue JavaScript Client1
+                new Client
+                {
+                    ClientId = "js1",
+                    ClientName = "JavaScript Client1",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris =           { "http://localhost:8082/static/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:8082/index.html" },
+                    AllowedCorsOrigins =     { "http://localhost:8082" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api1"
+                    }
+                },
+                  // JavaScript Client2
+                new Client
+                {
+                    ClientId = "js2",
+                    ClientName = "JavaScript Client2",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris =           { "http://localhost:8080/static/callback.html" },
+                    PostLogoutRedirectUris = { "http://localhost:8080/index.html" },
+                    AllowedCorsOrigins =     { "http://localhost:8080" },
+
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "api1"
+                    }
                 }
                 };
         }

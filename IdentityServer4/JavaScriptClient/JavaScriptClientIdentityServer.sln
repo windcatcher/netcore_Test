@@ -14,8 +14,14 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{D689E17F-CD2B-4B7D-BBC2-3195A4E8CBAB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetIdentityServer", "AspNetIdentityServer\AspNetIdentityServer.csproj", "{0117A7FC-18BE-4B18-89E6-9E74FDC28290}"
+	ProjectSection(ProjectDependencies) = postProject
+		{EA86F5B3-B46F-4549-BB0A-D655F2E6F933} = {EA86F5B3-B46F-4549-BB0A-D655F2E6F933}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JavaScriptClient", "JavaScriptClient\JavaScriptClient.csproj", "{B8FD5E14-F51E-4192-9E06-08A0C940CFE7}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0117A7FC-18BE-4B18-89E6-9E74FDC28290} = {0117A7FC-18BE-4B18-89E6-9E74FDC28290}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
